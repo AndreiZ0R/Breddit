@@ -49,7 +49,7 @@ public class Comment {
     @Column(nullable = false, columnDefinition = "integer default 0")
     private Integer votes;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     private Integer postId;
 
     @Column

@@ -11,8 +11,14 @@ import org.springframework.http.HttpStatus;
 
 import java.util.Map;
 
+//TODO: maybe make this and services an abstract version for CRUDs
 public class AbstractRestController {
+
     private final static ObjectMapper objectMapper = new ObjectMapper();
+
+    public Response successResponse() {
+        return response(HttpStatus.OK, AppUtils.SUCCESS);
+    }
 
     public Response successResponse(final Object body) {
         return response(body, HttpStatus.OK, AppUtils.SUCCESS);
@@ -26,6 +32,13 @@ public class AbstractRestController {
         return new Response.Builder()
                 .withMessage(errorMessage)
                 .withStatus(errorStatus)
+                .build();
+    }
+
+    public Response response(final HttpStatus status, final String message) {
+        return new Response.Builder()
+                .withMessage(message)
+                .withStatus(status)
                 .build();
     }
 

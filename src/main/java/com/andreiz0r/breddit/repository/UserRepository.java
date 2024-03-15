@@ -3,6 +3,7 @@ package com.andreiz0r.breddit.repository;
 import com.andreiz0r.breddit.model.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User,Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "select u from User u where u.username=:username")
     Optional<User> findByUsername(final String username);
 
@@ -27,6 +28,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     List<User> findMultipleById(final List<Integer> ids);
 
     @Transactional
-    @Query(value = "delete from User u where u.id=:id returning *", nativeQuery = true)
-    Optional<User> deleteUserById(final Integer id);
+    @Modifying
+    @Query(value = "delete from User u where u.id=:id")
+    Integer deleteUserById(final Integer id);
 }

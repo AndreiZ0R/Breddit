@@ -30,6 +30,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false, insertable = false)

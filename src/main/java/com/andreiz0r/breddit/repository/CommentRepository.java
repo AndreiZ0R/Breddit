@@ -7,13 +7,15 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     @Transactional
     @Modifying
     @Query(value = "delete from Comment c where c.id=:id")
-    Comment deleteByIdAndReturn(final Integer id);
+    Optional<Comment> deleteByIdAndReturn(final Integer id);
 
     //TODO: check this
 }

@@ -1,9 +1,10 @@
 package com.andreiz0r.breddit.utils;
 
+import com.andreiz0r.breddit.model.User;
+import com.andreiz0r.breddit.model.UserRole;
+
 import java.sql.Date;
 import java.sql.Timestamp;
-
-import com.andreiz0r.breddit.model.User;
 
 
 public class UserUtils {
@@ -66,8 +67,6 @@ public class UserUtils {
             final String country,
             final Timestamp createdAt,
             final Date birthDate) {
-        return new User(id, username, password, email, country, createdAt, birthDate
-//                ,UserRole.User
-        );
+        return new User(id, username, password, email, country, createdAt, birthDate, UserRole.User);
     }
 }

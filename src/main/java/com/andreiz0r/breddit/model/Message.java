@@ -26,7 +26,7 @@ import java.sql.Timestamp;
 @OnDelete(action = OnDeleteAction.CASCADE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Message {
+public class Message  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

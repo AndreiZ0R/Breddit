@@ -5,11 +5,11 @@ import java.util.List;
 
 public class AppUtils {
     public static final String TEST_CONTROLLER_ENDPOINT = "api/test";
-    public static final String USERS_CONTROLLER_ENDPOINT = "api/users";
-    public static final String FRIENDSHIPS_CONTROLLER_ENDPOINT = "/api/friendships";
-    public static final String PLAYLIST_SONG_CONTROLLER_ENDPOINT = "/api/playlistSongs";
-    public static final String SONG_CONTROLLER_ENDPOINT = "/api/songs";
-    public static final String PLAYLIST_CONTROLLER_ENDPOINT = "/api/playlists";
+    public static final String USER_CONTROLLER_ENDPOINT = "api/users";
+    public static final String COMMENT_CONTROLLER_ENDPOINT = "/api/comments";
+    public static final String MESSAGE_CONTROLLER_ENDPOINT = "/api/messages";
+    public static final String POST_CONTROLLER_ENDPOINT = "/api/posts";
+    public static final String SUBTHREAD_CONTROLLER_ENDPOINT = "/api/subthreads";
     public static final String AUTHENTICATION_CONTROLLER_ENDPOINT = "/api/auth";
     public static final String APPLICATION_JSON = "application/json";
     public static final String MESSAGE = "message";
@@ -22,6 +22,8 @@ public class AppUtils {
     public static final String JWT_START_STRING = "Bearer ";
     public static final String HOST = "http://localhost:";
     public final static String VITE_DEFAULT_HOST = "http://localhost:5173";
+    public final static String API_DEFAULT_HOST = "http://localhost:8080";
+
 
     public final static int SECOND = 1000;
     public final static int MINUTE = 60 * SECOND;
@@ -30,13 +32,12 @@ public class AppUtils {
 
     public final static String[] WHITE_LIST_URLS = {
             "/api/auth/**",
-            "/api/test",
             "/v3/api-docs/**",
             "/v3/api-docs.yaml",
             "/swagger-ui/**",
             "/swagger-ui.html",
             "/bus/v3/api-docs/**"};
-    public final static List<String> JWT_FILTER_WHITELISTED_URLS = List.of("/register", "/login", "/swagger-ui", "/v3/", "/bus", "/test");
+    public final static List<String> JWT_FILTER_WHITELISTED_URLS = List.of("/register", "/swagger-ui", "/v3/", "/bus");
 
     public static String constructFailedToFetch(final Class<?> clazz) {
         return "Could not fetch " + clazz.getSimpleName() + "s";
@@ -51,7 +52,7 @@ public class AppUtils {
     }
 
     public static String constructFailedDeleteMessage(final Class<?> clazz, final Object id) {
-        return "Failed to delete " + clazz.getSimpleName() + "with id(s): " + id;
+        return "Failed to delete " + clazz.getSimpleName() + " with id(s): " + id;
     }
 
     public static String usernameNotFound(final String username) {
