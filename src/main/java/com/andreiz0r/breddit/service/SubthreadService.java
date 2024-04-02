@@ -1,10 +1,14 @@
 package com.andreiz0r.breddit.service;
 
+import com.andreiz0r.breddit.controller.message.CreateSubthreadRequest;
+import com.andreiz0r.breddit.controller.message.UpdateSubthreadRequest;
 import com.andreiz0r.breddit.dto.DTOMapper;
 import com.andreiz0r.breddit.dto.SubthreadDTO;
 import com.andreiz0r.breddit.model.Subthread;
 import com.andreiz0r.breddit.repository.SubthreadRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +17,10 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class SubthreadService {
     private final SubthreadRepository subthreadRepository;
+    private final ObjectMapper objectMapper;
 
     public List<SubthreadDTO> findAll() {
         return subthreadRepository.findAll().stream().map(DTOMapper::mapSubthreadToDTO).collect(Collectors.toList());
@@ -24,10 +30,35 @@ public class SubthreadService {
         return subthreadRepository.findById(id).map(DTOMapper::mapSubthreadToDTO);
     }
 
-    public Optional<SubthreadDTO> deleteById(final Integer id) {
-        Optional<Subthread> user = subthreadRepository.findById(id);
-        Integer value = subthreadRepository.deleteSubthreadById(id);
-
-        return user.filter(__ -> value != 0).map(DTOMapper::mapSubthreadToDTO);
+    public Optional<SubthreadDTO> store(final CreateSubthreadRequest request) {
+        return Optional.of(
+                DTOMapper.mapSubthreadToDTO(
+                        subthreadRepository.save(
+                                Subthread.builder()
+                                        .name(request.getName())
+                                        .description(request.getDescription())
+                                        .membersCount(0)
+                                        .posts(List.of())
+                                        .build()
+                        )
+                )
+        );
     }
+
+    public Optional<SubthreadDTO> update(final Integer id, final UpdateSubthreadRequest request) {
+        return subthreadRepository.findById(id)
+                .map(subthread -> {
+                    DTOMapper.updateValues(subthread, request);
+                    subthreadRepository.save(subthread);
+                    return DTOMapper.mapSubthreadToDTO(subthread);
+                });
+    }
+
+    public Optional<SubthreadDTO> deleteById(final Integer id) {
+        return subthreadRepository.findById(id)
+                .filter(__ -> subthreadRepository.deleteSubthreadById(id) != 0)
+                .map(DTOMapper::mapSubthreadToDTO);
+    }
+
+
 }

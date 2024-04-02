@@ -10,7 +10,7 @@ import java.sql.Timestamp;
  */
 public record CommentDTO(
         Integer id,
-        User author,
+        UserDTO author,
         String body,
         Timestamp postedAt,
         Integer votes,

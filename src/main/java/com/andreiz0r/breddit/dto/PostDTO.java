@@ -14,9 +14,9 @@ public record PostDTO(
         Integer id,
         String title,
         String body,
-        User author,
+        UserDTO author,
         Timestamp postedAt,
-        List<Comment> comments,
+        List<CommentDTO> comments,
         Integer votes,
         Integer subthreadId
 ) implements Serializable {

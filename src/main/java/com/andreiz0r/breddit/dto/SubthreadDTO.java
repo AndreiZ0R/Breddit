@@ -13,6 +13,6 @@ public record SubthreadDTO(
         String name,
         String description,
         Integer membersCount,
-        List<Post> posts
+        List<PostDTO> posts
 ) implements Serializable {
 }

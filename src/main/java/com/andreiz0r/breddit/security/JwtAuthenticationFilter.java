@@ -68,9 +68,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @SneakyThrows
     private void handleInvalidAuth(final HttpServletResponse response, final String message, final int status) {
         AbstractRestController.setServletResponse(response, message, status);
-        //TODO: add those to utils
-        response.setContentType("text/html");
-        response.sendRedirect("/login");
+        //TODO: check those
+//        response.setContentType("text/html");
+//        response.sendRedirect("/login");
     }
 
     private boolean isValidHeader(final String header) {

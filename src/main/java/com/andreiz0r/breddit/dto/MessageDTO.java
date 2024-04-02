@@ -10,8 +10,8 @@ import java.sql.Timestamp;
  */
 public record MessageDTO(
         Integer id,
-        User sender,
-        User receiver,
+        UserDTO sender,
+        UserDTO receiver,
         String content,
         Timestamp sentAt
 ) implements Serializable {

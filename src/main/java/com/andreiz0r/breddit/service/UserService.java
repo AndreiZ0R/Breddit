@@ -4,10 +4,8 @@ import com.andreiz0r.breddit.controller.message.UpdateUserRequest;
 import com.andreiz0r.breddit.dto.DTOMapper;
 import com.andreiz0r.breddit.dto.UserDTO;
 import com.andreiz0r.breddit.repository.UserRepository;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +18,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class UserService {
     private final UserRepository userRepository;
-    private final ObjectMapper objectMapper;
 
     public List<UserDTO> findAll() {
         return userRepository.findAll().stream().map(DTOMapper::mapUserToDTO).collect(Collectors.toList());
@@ -37,11 +34,7 @@ public class UserService {
     public Optional<UserDTO> update(final Integer id, final UpdateUserRequest request) {
         return userRepository.findById(id)
                 .map(user -> {
-                    try {
-                        objectMapper.updateValue(user, request);
-                    } catch (JsonMappingException e) {
-                        log.warn("Update on user with id={}failed", user.getId());
-                    }
+                    DTOMapper.updateValues(user, request);
                     userRepository.save(user);
                     return DTOMapper.mapUserToDTO(user);
                 });

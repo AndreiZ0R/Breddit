@@ -7,13 +7,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
     @Transactional
     @Modifying
     @Query(value = "delete from Post p where p.id=:id")
-    Optional<Post> deleteByIdAndReturn(final Integer id);
+    Integer deletePostById(final Integer id);
 }

@@ -8,15 +8,11 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UpdateUserRequest {
+public class UpdatePostRequest {
     @JsonProperty
-    private String username;
+    private String title;
     @JsonProperty
-    private String password;
+    private String body;
     @JsonProperty
-    private String email;
-    @JsonProperty
-    private String country;
-    @JsonProperty
-    private String role;
+    private Integer votes;
 }

@@ -1,5 +1,7 @@
 package com.andreiz0r.breddit.dto;
 
+import com.andreiz0r.breddit.model.UserRole;
+
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -10,7 +12,7 @@ public record UserDTO(
         String email,
         String country,
         Timestamp createdAt,
-        Date birthDate
-//        UserRole role
+        Date birthDate,
+        UserRole role
 ) implements Serializable {
 }

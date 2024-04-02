@@ -87,4 +87,28 @@ class BredditBackendApplicationTests {
                 )
         );
     }
+
+    @Test
+    void ddd() {
+//        postRepository.save(
+//                new Post(-1,
+//                         "Meme of february",
+//                         "Hello everyone, here is the best meme in february...",
+//                         userRepository.findById(1).get(),
+//                         Timestamp.from(Instant.now()),
+//                         List.of(),
+//                         0,
+//                         1
+//                )
+//        );
+        commentRepository.save(
+                new Comment(-1,
+                            userRepository.findById(3).get(),
+                            "Actually such a fine meme!",
+                            Timestamp.from(Instant.now()),
+                            2,
+                            1,
+                            null
+                ));
+    }
 }

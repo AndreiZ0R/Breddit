@@ -1,5 +1,7 @@
 package com.andreiz0r.breddit.utils;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class AppUtils {
             "/swagger-ui/**",
             "/swagger-ui.html",
             "/bus/v3/api-docs/**"};
-    public final static List<String> JWT_FILTER_WHITELISTED_URLS = List.of("/register", "/swagger-ui", "/v3/", "/bus");
+    public final static List<String> JWT_FILTER_WHITELISTED_URLS = List.of("/register", "/login", "/swagger-ui", "/v3/", "/bus");
 
     public static String constructFailedToFetch(final Class<?> clazz) {
         return "Could not fetch " + clazz.getSimpleName() + "s";
@@ -45,6 +47,10 @@ public class AppUtils {
 
     public static String constructNotFoundMessage(Class<?> clazz, final String propertyName, final Object value) {
         return "Could not find " + clazz.getSimpleName() + " with " + propertyName + ": " + value;
+    }
+
+    public static String constructUpdateFailedMessage(Class<?> clazz, final String propertyName, final Object value) {
+        return "Update on " + clazz.getSimpleName() + " with " + propertyName + ": " + value + " failed.";
     }
 
     public static String constructFailedSaveMessage(final Class<?> clazz) {
@@ -61,6 +67,10 @@ public class AppUtils {
 
     public static Date now() {
         return new Date();
+    }
+
+    public static Timestamp timestampNow() {
+        return Timestamp.from(Instant.now());
     }
 
     public static Date nowWithDelay(final int delay) {

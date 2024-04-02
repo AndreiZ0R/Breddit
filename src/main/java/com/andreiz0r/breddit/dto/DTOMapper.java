@@ -1,13 +1,25 @@
 package com.andreiz0r.breddit.dto;
 
+import com.andreiz0r.breddit.exception.ApiException;
 import com.andreiz0r.breddit.model.Comment;
 import com.andreiz0r.breddit.model.Message;
 import com.andreiz0r.breddit.model.Post;
 import com.andreiz0r.breddit.model.Subthread;
 import com.andreiz0r.breddit.model.User;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
 
-//TODO: role
 public class DTOMapper {
+    private final static ObjectMapper objectMapper = new ObjectMapper();
+
+    public static <T, U> void updateValues(T value, U newValue) {
+        try {
+            objectMapper.updateValue(value, newValue);
+        } catch (JsonMappingException e) {
+            throw new ApiException(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
     public static UserDTO mapUserToDTO(final User user) {
         return new UserDTO(
@@ -16,14 +28,14 @@ public class DTOMapper {
                 user.getEmail(),
                 user.getCountry(),
                 user.getCreatedAt(),
-                user.getBirthDate());
-//                user.getUserRole());
+                user.getBirthDate(),
+                user.getRole());
     }
 
     public static CommentDTO mapCommentToDTO(final Comment comment) {
         return new CommentDTO(
                 comment.getId(),
-                comment.getAuthor(),
+                mapUserToDTO(comment.getAuthor()),
                 comment.getBody(),
                 comment.getPostedAt(),
                 comment.getVotes(),
@@ -35,8 +47,8 @@ public class DTOMapper {
     public static MessageDTO mapMessageToDTO(final Message message) {
         return new MessageDTO(
                 message.getId(),
-                message.getSender(),
-                message.getReceiver(),
+                mapUserToDTO(message.getSender()),
+                mapUserToDTO(message.getReceiver()),
                 message.getContent(),
                 message.getSentAt()
         );
@@ -47,9 +59,9 @@ public class DTOMapper {
                 post.getId(),
                 post.getTitle(),
                 post.getBody(),
-                post.getAuthor(),
+                mapUserToDTO(post.getAuthor()),
                 post.getPostedAt(),
-                post.getComments(),
+                post.getComments().stream().map(DTOMapper::mapCommentToDTO).toList(),
                 post.getVotes(),
                 post.getSubthreadId()
         );
@@ -61,7 +73,7 @@ public class DTOMapper {
                 subthread.getName(),
                 subthread.getDescription(),
                 subthread.getMembersCount(),
-                subthread.getPosts()
+                subthread.getPosts().stream().map(DTOMapper::mapPostToDTO).toList()
         );
     }
 }

@@ -27,7 +27,7 @@ class UserRepositoryTest extends AbstractUnitTest<User> {
         User user = repository.save(UserUtils.createRandomUser());
 
         // When
-        Integer result = repository.deleteUser(user.getId());
+        Integer result = repository.deleteUserById(user.getId());
 
         // Then
         assertThat(result, equalTo(1));
@@ -39,7 +39,7 @@ class UserRepositoryTest extends AbstractUnitTest<User> {
         repository.save(UserUtils.createRandomUser());
 
         // When
-        Integer result = repository.deleteUser(Randoms.randomPositiveInteger());
+        Integer result = repository.deleteUserById(Randoms.randomPositiveInteger());
 
         // Then
         assertThat(result, equalTo(0));
