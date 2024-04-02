@@ -73,6 +73,10 @@ public class AppUtils {
         return Timestamp.from(Instant.now());
     }
 
+    public static java.sql.Date sqlDateNow() {
+        return new java.sql.Date(System.currentTimeMillis());
+    }
+
     public static Date nowWithDelay(final int delay) {
         return new Date(System.currentTimeMillis() + delay);
     }

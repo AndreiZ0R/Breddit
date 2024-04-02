@@ -39,6 +39,10 @@ public class Randoms {
         return UUID.randomUUID().toString().replaceAll("_", "").substring(0, limit);
     }
 
+    public static String randomEmail() {
+        return alphabetic(10) + "@gmail.com";
+    }
+
     public static List<String> randomStringList() {
         return List.of(alphabetic(), alphabetic(), alphabetic());
     }

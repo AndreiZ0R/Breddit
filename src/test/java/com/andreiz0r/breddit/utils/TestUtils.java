@@ -39,7 +39,19 @@ public class TestUtils {
         return AppUtils.HOST + port + endPoint;
     }
 
-    public static String buildJsonString(final String message) {
+    public static String toJsonString(final Object toJson) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String value = "";
+        try {
+            value = objectMapper.writeValueAsString(toJson);
+        } catch (JsonProcessingException e) {
+            LOG.error(e::getMessage);
+        }
+
+        return value;
+    }
+
+    public static String toJsonString(final String message) {
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put(AppUtils.MESSAGE, message);
 
@@ -54,7 +66,7 @@ public class TestUtils {
         return value;
     }
 
-    public static String buildJsonString(final Object body, final String message) {
+    public static String toJsonString(final Object body, final String message) {
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put(AppUtils.PAYLOAD, body);
         responseBody.put(AppUtils.MESSAGE, message);

@@ -29,8 +29,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(AppUtils.WHITE_LIST_URLS).permitAll()
-                        .requestMatchers(HttpMethod.DELETE,"/api/comments/**").hasRole(UserRole.Mod.name())
-                        .requestMatchers(HttpMethod.DELETE,"/api/posts/**").hasRole(UserRole.Mod.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/comments/**").hasAuthority(UserRole.Mod.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/posts/**").hasAuthority(UserRole.Mod.name())
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(handler -> handler

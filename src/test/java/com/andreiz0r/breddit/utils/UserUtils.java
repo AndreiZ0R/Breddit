@@ -9,6 +9,18 @@ import java.sql.Timestamp;
 
 public class UserUtils {
 
+    public static User copy(final User user) {
+        return createUser(
+                user.getId(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getEmail(),
+                user.getCountry(),
+                user.getCreatedAt(),
+                user.getBirthDate(),
+                user.getRole());
+    }
+
     public static User createRandomUser(final Integer id) {
         User user = createRandomUser();
         user.setId(id);
@@ -54,11 +66,11 @@ public class UserUtils {
                 Randoms.alphabetic(),
                 Randoms.alphabetic() + "@gmail.com",
                 Randoms.alphabetic(),
-                new Timestamp(System.currentTimeMillis()),
-                new Date(System.currentTimeMillis()));
+                AppUtils.timestampNow(),
+                new Date(System.currentTimeMillis()),
+                Randoms.randomBoolean() ? UserRole.User : UserRole.Mod);
     }
 
-    //TODO:
     public static User createUser(
             final Integer id,
             final String username,
@@ -66,7 +78,8 @@ public class UserUtils {
             final String email,
             final String country,
             final Timestamp createdAt,
-            final Date birthDate) {
-        return new User(id, username, password, email, country, createdAt, birthDate, UserRole.User);
+            final Date birthDate,
+            final UserRole role) {
+        return new User(id, username, password, email, country, createdAt, birthDate, role);
     }
 }

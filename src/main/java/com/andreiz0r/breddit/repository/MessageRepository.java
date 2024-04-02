@@ -1,6 +1,5 @@
 package com.andreiz0r.breddit.repository;
 
-import com.andreiz0r.breddit.model.Comment;
 import com.andreiz0r.breddit.model.Message;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,5 +14,5 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
     @Transactional
     @Modifying
     @Query(value = "delete from Message m where m.id=:id")
-    Optional<Message> deleteByIdAndReturn(final Integer id);
+    Integer deleteMessageById(final Integer id);
 }

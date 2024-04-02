@@ -25,9 +25,9 @@ public abstract class AbstractUnitTest<T> {
         assertThat(actualBuilder, equalTo(expectedBuilder));
     }
 
-    public void assertThatItemsAreEqualWithoutIds(final T actual, final T expected) {
-        String actualBuilder = new ReflectionToStringBuilder(actual, ToStringStyle.JSON_STYLE).toString();
-        String expectedBuilder = new ReflectionToStringBuilder(expected, ToStringStyle.JSON_STYLE).toString();
+    public void assertThatItemsAreEqualIgnoringFields(final T actual, final T expected, final String... fields) {
+        String actualBuilder = new ReflectionToStringBuilder(actual, ToStringStyle.JSON_STYLE).setExcludeFieldNames(fields).toString();
+        String expectedBuilder = new ReflectionToStringBuilder(expected, ToStringStyle.JSON_STYLE).setExcludeFieldNames(fields).toString();
 
         assertThat(actualBuilder, equalTo(expectedBuilder));
     }

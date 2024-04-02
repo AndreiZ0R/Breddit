@@ -4,7 +4,6 @@ import com.andreiz0r.breddit.controller.message.UpdateUserRequest;
 import com.andreiz0r.breddit.dto.DTOMapper;
 import com.andreiz0r.breddit.dto.UserDTO;
 import com.andreiz0r.breddit.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -40,7 +39,9 @@ public class UserService {
                 });
     }
 
-    public boolean deleteById(final Integer id) {
-        return userRepository.deleteUserById(id) == 1;
+    public Optional<UserDTO> deleteById(final Integer id) {
+        return userRepository.findById(id)
+                .filter(__ -> userRepository.deleteUserById(id) != 0)
+                .map(DTOMapper::mapUserToDTO);
     }
 }

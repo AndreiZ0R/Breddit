@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SubthreadService {
     private final SubthreadRepository subthreadRepository;
-    private final ObjectMapper objectMapper;
 
     public List<SubthreadDTO> findAll() {
         return subthreadRepository.findAll().stream().map(DTOMapper::mapSubthreadToDTO).collect(Collectors.toList());
@@ -41,8 +40,7 @@ public class SubthreadService {
                                         .posts(List.of())
                                         .build()
                         )
-                )
-        );
+                ));
     }
 
     public Optional<SubthreadDTO> update(final Integer id, final UpdateSubthreadRequest request) {
@@ -59,6 +57,4 @@ public class SubthreadService {
                 .filter(__ -> subthreadRepository.deleteSubthreadById(id) != 0)
                 .map(DTOMapper::mapSubthreadToDTO);
     }
-
-
 }

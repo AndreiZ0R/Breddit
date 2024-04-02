@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -28,7 +27,8 @@ import static com.andreiz0r.breddit.utils.AppUtils.USER_CONTROLLER_ENDPOINT;
 @CrossOrigin
 public class UserController extends AbstractRestController {
     private final UserService userService;
-//todo: webflux
+
+    //todo: webflux
     @GetMapping
     public Response findAllUsers() {
         List<UserDTO> users = userService.findAll();
@@ -53,16 +53,16 @@ public class UserController extends AbstractRestController {
     }
 
     @PatchMapping("/{id}")
-    public Response updateUser(@PathVariable final Integer id, @RequestBody final UpdateUserRequest request){
-     return userService.update(id, request)
+    public Response updateUser(@PathVariable final Integer id, @RequestBody final UpdateUserRequest request) {
+        return userService.update(id, request)
                 .map(this::successResponse)
                 .orElse(failureResponse(AppUtils.constructNotFoundMessage(User.class, "id", id), HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
     public Response deleteUserById(@PathVariable final Integer id) {
-        return userService.deleteById(id) ?
-               successResponse() :
-               failureResponse(AppUtils.constructFailedDeleteMessage(User.class, id), HttpStatus.NOT_FOUND);
+        return userService.deleteById(id)
+                .map(this::successResponse)
+                .orElse(failureResponse(AppUtils.constructFailedDeleteMessage(User.class, id), HttpStatus.NOT_FOUND));
     }
 }

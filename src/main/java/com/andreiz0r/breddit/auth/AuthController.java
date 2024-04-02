@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.andreiz0r.breddit.utils.AppUtils.AUTHENTICATION_CONTROLLER_ENDPOINT;
-
+//TODO: refresh token + account validation with email
 @RestController
 @ControllerAdvice
 @RequestMapping(AUTHENTICATION_CONTROLLER_ENDPOINT)

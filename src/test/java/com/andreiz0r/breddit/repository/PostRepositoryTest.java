@@ -1,7 +1,9 @@
 package com.andreiz0r.breddit.repository;
 
+import com.andreiz0r.breddit.model.Post;
 import com.andreiz0r.breddit.model.User;
 import com.andreiz0r.breddit.utils.AbstractUnitTest;
+import com.andreiz0r.breddit.utils.PostUtils;
 import com.andreiz0r.breddit.utils.Randoms;
 import com.andreiz0r.breddit.utils.UserUtils;
 import jakarta.transaction.Transactional;
@@ -9,36 +11,41 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Optional;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest
 @Transactional
-class UserRepositoryTest extends AbstractUnitTest<User> {
+class PostRepositoryTest extends AbstractUnitTest<Post> {
 
     @Autowired
-    private UserRepository repository;
+    private PostRepository repository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
-    void deleteUserById_userIsInRepository_deletesUser() {
+    void deletePostById_postIsInRepository_deletesPost() {
         // Given
-        User user = repository.save(UserUtils.createRandomUser());
+        Post post = repository.save(PostUtils.createRandomPost(prepareAuthor()));
 
         // When
-        Integer result = repository.deleteUserById(user.getId());
+        Integer result = repository.deletePostById(post.getId());
 
         // Then
         assertThat(result, equalTo(1));
     }
 
     @Test
-    void deleteUserById_userIsNotInRepository_doesNotDelete() {
+    void deletePostById_postIsNotInRepository_doesNotDelete() {
         // When
-        Integer result = repository.deleteUserById(Randoms.randomPositiveInteger());
+        Integer result = repository.deletePostById(Randoms.randomPositiveInteger());
 
         // Then
         assertThat(result, equalTo(0));
+    }
+
+    private User prepareAuthor() {
+        return userRepository.save(UserUtils.createRandomUser());
     }
 }

@@ -8,8 +8,6 @@ import com.andreiz0r.breddit.model.Comment;
 import com.andreiz0r.breddit.repository.CommentRepository;
 import com.andreiz0r.breddit.repository.UserRepository;
 import com.andreiz0r.breddit.utils.AppUtils;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,8 +22,6 @@ import java.util.stream.Collectors;
 public class CommentService {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
-    private final ObjectMapper objectMapper;
-
 
     public List<CommentDTO> findAll() {
         return commentRepository.findAll().stream().map(DTOMapper::mapCommentToDTO).collect(Collectors.toList());
@@ -61,6 +57,8 @@ public class CommentService {
     }
 
     public Optional<CommentDTO> deleteById(final Integer id) {
-        return commentRepository.deleteByIdAndReturn(id).map(DTOMapper::mapCommentToDTO);
+        return commentRepository.findById(id)
+                .filter(__ -> commentRepository.deleteCommentById(id) != 0)
+                .map(DTOMapper::mapCommentToDTO);
     }
 }

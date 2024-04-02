@@ -8,7 +8,6 @@ import com.andreiz0r.breddit.model.Post;
 import com.andreiz0r.breddit.repository.PostRepository;
 import com.andreiz0r.breddit.repository.UserRepository;
 import com.andreiz0r.breddit.utils.AppUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,6 @@ import java.util.stream.Collectors;
 public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
-    private final ObjectMapper objectMapper;
 
     public List<PostDTO> findAll() {
         return postRepository.findAll().stream().map(DTOMapper::mapPostToDTO).collect(Collectors.toList());

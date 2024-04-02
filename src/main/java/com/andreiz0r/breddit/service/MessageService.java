@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+//TODO:
 @Service
 @RequiredArgsConstructor
 public class MessageService {
@@ -24,6 +25,8 @@ public class MessageService {
     }
 
     public Optional<MessageDTO> deleteById(final Integer id) {
-        return messageRepository.deleteByIdAndReturn(id).map(DTOMapper::mapMessageToDTO);
+        return messageRepository.findById(id)
+                .filter(__ -> messageRepository.deleteMessageById(id) != 0)
+                .map(DTOMapper::mapMessageToDTO);
     }
 }
