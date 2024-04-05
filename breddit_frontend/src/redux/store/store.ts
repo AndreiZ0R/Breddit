@@ -6,9 +6,9 @@ import {setupListeners} from "@reduxjs/toolkit/query";
 
 export const store = configureStore({
     reducer: {
-        counter: counterReducer,
-        auth: authReducer,
         [bredditApi.reducerPath]: bredditApi.reducer,
+        auth: authReducer,
+        counter: counterReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(bredditApi.middleware)
 })

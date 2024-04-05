@@ -1,16 +1,15 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import {AuthResponse, BaseResponse, User} from 'models/models.ts';
+import {AuthResponse, BaseResponse, Post, Subthread, User} from 'models/models.ts';
 import {AuthRequest} from "models/requests.ts";
 import Cookies from "js-cookie";
-
 
 const baseURI = "http://localhost:8080/api";
 const authEndpoint = "/auth";
 const usersEndpoint = "/users";
-// const commentsEndpoint = "/comments";
-// const postsEndpoint = "/posts";
-// const subthreadsEndpoint = "/subthreads";
-// TODO: messages
+const commentsEndpoint = "/comments";
+const postsEndpoint = "/posts";
+const subthreadsEndpoint = "/subthreads";
+// const messagesEndpoint = "/messages";
 
 
 const customBaseQuery = fetchBaseQuery({
@@ -25,6 +24,8 @@ const customBaseQuery = fetchBaseQuery({
         return headers;
     },
 })
+
+
 export const bredditApi = createApi({
     reducerPath: "bredditApi",
     baseQuery: customBaseQuery,
@@ -32,6 +33,19 @@ export const bredditApi = createApi({
         getUsers: builder.query<User[], void>({
             query: () => usersEndpoint,
         }),
+
+        getComments: builder.query<Comment[], void>({
+            query: () => commentsEndpoint,
+        }),
+
+        getPosts: builder.query<Post[], void>({
+            query: () => postsEndpoint,
+        }),
+
+        getSubthreads: builder.query<Subthread[], void>({
+            query: () => subthreadsEndpoint,
+        }),
+
         login: builder.mutation<AuthResponse, AuthRequest>({
             query: (authRequest: AuthRequest) => ({
                 url: `${authEndpoint}/login`,
@@ -46,5 +60,8 @@ export const bredditApi = createApi({
 
 export const {
     useGetUsersQuery,
+    useGetCommentsQuery,
+    useGetPostsQuery,
+    useGetSubthreadsQuery,
     useLoginMutation,
 } = bredditApi;
