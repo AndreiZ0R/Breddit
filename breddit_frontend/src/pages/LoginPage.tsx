@@ -33,7 +33,7 @@ export default function LoginPage() {
             .catch(error => console.log(error));
     }
 
-    //TODO: react router dom + redirects in case not logged in + maybe theming: chakra / tailwind?
+    //TODO: react router dom + redirects in case not logged in + maybe theming: chakra / tailwind??
     return (
         <>
             <div>
