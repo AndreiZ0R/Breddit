@@ -1,72 +1,53 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import {AuthResponse, BaseResponse, DomainModel, Post, Subthread, User} from 'models/models.ts';
+import {AuthResponse, BaseModel, BaseResponse, DomainResponse} from 'models/models.ts';
 import {AuthRequest} from "models/requests.ts";
 import Cookies from "js-cookie";
-
-const baseURI = "/api";
-const authEndpoint = "/auth";
-const usersEndpoint = "/users";
-const commentsEndpoint = "/comments";
-const postsEndpoint = "/posts";
-const subthreadsEndpoint = "/subthreads";
-// const messagesEndpoint = "/messages";
-
+import {Constants, Endpoints, HttpMethods} from "../../utils/constants.ts";
 
 const customBaseQuery = fetchBaseQuery({
-    baseUrl: baseURI,
-    prepareHeaders: (headers: Headers, {getState}) => {
-        const token = Cookies.get("token") ?? "";
+    baseUrl: Endpoints.baseURI,
+    prepareHeaders: (headers: Headers, /*{getState}*/) => {
+        const token = Cookies.get(Constants.TOKEN) ?? "";
 
         if (token) {
-            headers.set('authorization', `Bearer ${token}`);
+            headers.set(Constants.AUTHORIZATION_HEADER, Constants.BUILD_AUTHORIZATION_HEADER(token));
         }
 
         return headers;
     },
 })
 
-//maybe create a custom query?
 export const bredditApi = createApi({
     reducerPath: "bredditApi",
     baseQuery: customBaseQuery,
     endpoints: (builder) => ({
-        getDomainModel: builder.query<DomainModel[], string>({
+        getDomainModel: builder.query<DomainResponse, string>({
             query: (endpoint: string) => endpoint,
-        }),
-
-        getUsers: builder.query<User[], void>({
-            query: () => usersEndpoint,
-        }),
-
-        getComments: builder.query<Comment[], void>({
-            query: () => commentsEndpoint,
-        }),
-
-        getPosts: builder.query<Post[], void>({
-            query: () => postsEndpoint,
-        }),
-
-        getSubthreads: builder.query<Subthread[], void>({
-            query: () => subthreadsEndpoint,
+            // providesTags: [Queries.login],
         }),
 
         login: builder.mutation<AuthResponse, AuthRequest>({
             query: (authRequest: AuthRequest) => ({
-                url: `${authEndpoint}/login`,
-                method: 'POST',
+                url: `${Endpoints.auth}/login`,
+                method: HttpMethods.POST,
                 body: authRequest
             }),
             transformResponse: (response: { payload: AuthResponse }): AuthResponse => response.payload as AuthResponse,
             transformErrorResponse: (response: { status: number, data: BaseResponse }): BaseResponse => response.data as BaseResponse,
-        })
+        }),
+
+
     }),
 });
 
+export const useGetModel = <T extends BaseModel>(endpoint: string) => {
+    const {data: domainModel} = useGetDomainModelQuery(endpoint);
+    if (domainModel) {
+        return domainModel.payload as T;
+    }
+}
+
 export const {
-    useGetUsersQuery,
-    useGetCommentsQuery,
-    useGetPostsQuery,
-    useGetSubthreadsQuery,
     useGetDomainModelQuery,
     useLoginMutation,
 } = bredditApi;

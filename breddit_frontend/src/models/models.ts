@@ -74,6 +74,7 @@ interface AuthResponse extends BaseModel{
 
 
 export type {
+    BaseModel,
     BaseResponse,
     DomainResponse,
     DomainModel,

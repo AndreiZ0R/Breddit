@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AuthResponse, User} from "../../models/models.ts";
 import Cookies from "js-cookie";
 import {RootState} from "../store/store.ts";
+import {Constants} from "../../utils/constants.ts";
 
 export interface AuthState {
     user: User | null,
@@ -22,13 +23,12 @@ export const authSlice = createSlice({
         endSession: (state) => {
             state.user = null;
             state.isLoggedIn = false;
-            Cookies.remove("token");
+            Cookies.remove(Constants.TOKEN);
         },
         startSession: (state, action: PayloadAction<AuthResponse>) => {
             state.user = action.payload.user;
             state.isLoggedIn = true;
-            Cookies.set("token", action.payload.token, {expires: 7, secure: true});
-            console.log("Session started successfully, username: ", state.user.username);
+            Cookies.set(Constants.TOKEN, action.payload.token, {expires: 7, secure: true});
         },
     },
 });
