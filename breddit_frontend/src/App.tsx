@@ -1,24 +1,40 @@
 import {useDispatch, useSelector} from "react-redux";
 import {decrement, increment, selectCount} from "./redux/slices/counterSlice.ts";
-import {useGetPokemonByNameQuery} from "./redux/query/bredditApi.ts";
-import {useEffect} from "react";
+import {useLoginMutation} from "./redux/query/breddit-api.ts";
+import {useState} from "react";
+import {AuthResponse} from "./models/models.ts";
+import {startSession} from "./redux/slices/authSlice.ts";
 
 function App() {
     const count = useSelector(selectCount);
+
     const dispatch = useDispatch();
+    const [login] = useLoginMutation();
+    const [credentials, setCredentials] = useState({
+        username: "",
+        password: "",
+    });
 
-    const {data} = useGetPokemonByNameQuery("bulbasaur");
+    const startLogin = () => {
+        login(credentials).unwrap()
+            .then((response: AuthResponse) => dispatch(startSession(response)))
+            .catch(error => console.log(error));
+    }
 
-    useEffect(() => {
-        console.log(data);
-    }, [data])
-
+    //TODO: react router dom + redirects in case not logged in
     return (
         <>
             <div>
                 <button onClick={() => dispatch(increment())}>Increment</button>
                 <span>{count}</span>
                 <button onClick={() => dispatch(decrement())}>Increment</button>
+                <input type="text" value={credentials.username} onChange={(newValue) =>
+                    setCredentials((prev) => ({...prev, username: newValue.target.value}))}/>
+                <input type="text" value={credentials.password} onChange={(newValue) =>
+                    setCredentials((prev) => ({...prev, password: newValue.target.value}))}/>
+
+
+                <button onClick={startLogin}>Login</button>
             </div>
         </>
     )
