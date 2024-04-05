@@ -1,9 +1,9 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import {AuthResponse, BaseResponse, Post, Subthread, User} from 'models/models.ts';
+import {AuthResponse, BaseResponse, DomainModel, Post, Subthread, User} from 'models/models.ts';
 import {AuthRequest} from "models/requests.ts";
 import Cookies from "js-cookie";
 
-const baseURI = "http://localhost:8080/api";
+const baseURI = "/api";
 const authEndpoint = "/auth";
 const usersEndpoint = "/users";
 const commentsEndpoint = "/comments";
@@ -25,11 +25,15 @@ const customBaseQuery = fetchBaseQuery({
     },
 })
 
-
+//maybe create a custom query?
 export const bredditApi = createApi({
     reducerPath: "bredditApi",
     baseQuery: customBaseQuery,
     endpoints: (builder) => ({
+        getDomainModel: builder.query<DomainModel[], string>({
+            query: (endpoint: string) => endpoint,
+        }),
+
         getUsers: builder.query<User[], void>({
             query: () => usersEndpoint,
         }),
@@ -63,5 +67,6 @@ export const {
     useGetCommentsQuery,
     useGetPostsQuery,
     useGetSubthreadsQuery,
+    useGetDomainModelQuery,
     useLoginMutation,
 } = bredditApi;

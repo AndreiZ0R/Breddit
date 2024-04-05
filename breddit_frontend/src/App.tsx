@@ -1,12 +1,14 @@
 import {useDispatch, useSelector} from "react-redux";
 import {decrement, increment, selectCount} from "./redux/slices/counterSlice.ts";
-import {useLoginMutation} from "./redux/query/breddit-api.ts";
-import {useState} from "react";
+import {useGetDomainModelQuery, useLoginMutation} from "./redux/query/breddit-api.ts";
+import {useEffect, useState} from "react";
 import {AuthResponse} from "./models/models.ts";
 import {startSession} from "./redux/slices/authSlice.ts";
 
 function App() {
     const count = useSelector(selectCount);
+
+    const {data: domainModel} = useGetDomainModelQuery("/subthreads");
 
     const dispatch = useDispatch();
     const [login] = useLoginMutation();
@@ -14,6 +16,10 @@ function App() {
         username: "",
         password: "",
     });
+
+    useEffect(() => {
+        console.log(domainModel)
+    }, [domainModel]);
 
     const startLogin = () => {
         login(credentials).unwrap()
