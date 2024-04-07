@@ -1,11 +1,18 @@
 import {useSelector} from "react-redux";
 import {AuthState, selectAuthState} from "../redux/slices/authSlice.ts";
-import {Navigate, Outlet} from 'react-router-dom';
+import {Navigate, useLocation} from 'react-router-dom';
+import {ReactNode} from "react";
 
+type PrivateRouteProps = {
+    children: ReactNode,
+}
 
-const PrivateRoute = () => {
+const PrivateRoute = ({children}: PrivateRouteProps): JSX.Element => {
     const authState: AuthState = useSelector(selectAuthState);
-    return authState.isLoggedIn ? <Outlet/> : <Navigate to="/login" replace/>;
-};
+    const location = useLocation();
 
+    return authState.isLoggedIn ?
+        (<>{children}</>)
+        : <Navigate to={`/login?from=${location.pathname}${location.search}`} replace={true} /*state={{from: `${location.pathname}${location.search}`}}*//>;
+};
 export default PrivateRoute;

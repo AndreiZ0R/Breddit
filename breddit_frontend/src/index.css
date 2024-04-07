@@ -1,14 +1,37 @@
-:root {
-  /*font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;*/
-  /*line-height: 1.5;*/
-  /*font-weight: 400;*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  /*color: rgba(255, 255, 255, 0.87);*/
-  /*background-color: #242424;*/
+@layer base {
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    /*Light theme*/
+    :root {
+        --primary-base: rgb(132, 94, 194);
+        --primary-lighter: rgb(196, 147, 255);
+        --secondary-base: rgb(255, 191, 0);
+        --background-base: rgb(239, 239, 239);
+        --background-accent: rgb(245, 245, 245);
+        --background-text: rgb(36, 36, 36);
+        --background-hover: rgb(239, 239, 239);
+    }
+
+    :root[data-theme="dark"] {
+        --primary-base: rgb(132, 94, 194);
+        --primary-lighter: rgb(196, 147, 255);
+        --secondary-base: rgb(255, 191, 0);
+        --background-base: rgb(36, 36, 36);
+        --background-accent: rgb(19, 19, 19);
+        --background-text: rgb(239, 239, 239);
+        --background-hover: rgb(52, 52, 52);
+    }
+
+    :root[data-theme="green"] {
+        --primary-base: rgb(162, 224, 53);
+        --primary-lighter: rgb(162, 215, 80);
+        --secondary-base: rgb(241, 138, 56);
+        --background-base: rgb(181, 238, 139);
+        --background-accent: rgb(153, 238, 93);
+        --background-text: rgb(239, 239, 239);
+        --background-hover: rgb(104, 203, 126);
+    }
 }

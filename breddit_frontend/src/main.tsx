@@ -6,6 +6,7 @@ import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import HomePage from "./pages/HomePage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import PrivateRoute from "./pages/PrivateRoutes.tsx";
+import React from 'react';
 
 
 function Layout() {
@@ -23,26 +24,33 @@ const router = createBrowserRouter([
         element: <Layout/>,
         // errorElement: <ErrorElement/>,
         children: [
-            {
-                path: "/",
-                element: <PrivateRoute/>
-            },
+            // {
+            //     path: "/",
+            //     element: <PrivateRoute/>
+            // },
             {
                 path: "/home",
-                element: <HomePage/>
+                element: <PrivateRoute><HomePage/></PrivateRoute>,
             },
             {
                 path: "/login",
                 element: <LoginPage/>
             },
+            {
+                path: "/ok",
+                element: <PrivateRoute>
+                    <div>okok</div>
+                </PrivateRoute>
+            }
         ]
     }
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-    // <React.StrictMode>
-    <Provider store={store}>
-        <RouterProvider router={router}/>
-    </Provider>
-    // </React.StrictMode>,
+const root = ReactDOM.createRoot(document.getElementById("root")!);
+root.render(
+    <React.StrictMode>
+        <Provider store={store}>
+            <RouterProvider router={router}/>
+        </Provider>
+    </React.StrictMode>,
 )

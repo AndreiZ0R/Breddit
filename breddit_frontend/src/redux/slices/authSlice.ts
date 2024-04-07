@@ -10,11 +10,23 @@ export interface AuthState {
     isLoggedIn: boolean,
 }
 
-const initialState: AuthState = {
-    user: null,
-    token: null,
-    isLoggedIn: false
+const getInitialUser = (): User | null => {
+    const storedUser = localStorage.getItem(Constants.USER);
+    if (storedUser) {
+        return JSON.parse(storedUser) as User;
+    }
+
+    return null;
 }
+
+
+const initialState: AuthState = {
+    user: getInitialUser(),
+    token: Cookies.get(Constants.TOKEN) ?? null,
+    isLoggedIn: !!Cookies.get(Constants.TOKEN),
+}
+
+console.log("auth", initialState);
 
 export const authSlice = createSlice({
     name: "auth",
@@ -24,11 +36,13 @@ export const authSlice = createSlice({
             state.user = null;
             state.isLoggedIn = false;
             Cookies.remove(Constants.TOKEN);
+            localStorage.removeItem(Constants.USER);
         },
         startSession: (state, action: PayloadAction<AuthResponse>) => {
             state.user = action.payload.user;
             state.isLoggedIn = true;
             Cookies.set(Constants.TOKEN, action.payload.token, {expires: 7, secure: true});
+            localStorage.setItem(Constants.USER, JSON.stringify(state.user));
         },
     },
 });
