@@ -2,17 +2,18 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import {Provider} from 'react-redux';
 import {store} from './redux/store/store.ts'
-import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Navigate, Outlet, RouterProvider} from "react-router-dom";
 import HomePage from "./pages/HomePage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
-import PrivateRoute from "./pages/PrivateRoutes.tsx";
+import PrivateRoute from "./pages/PrivateRoute.tsx";
 import React from 'react';
+import Navbar from "./components/Navbar.tsx";
 
 
 function Layout() {
     return (
         <>
-            {/*<Header/>*/}
+            <Navbar/>
             <Outlet/>
             {/*<Footer/>*/}
         </>
@@ -24,10 +25,10 @@ const router = createBrowserRouter([
         element: <Layout/>,
         // errorElement: <ErrorElement/>,
         children: [
-            // {
-            //     path: "/",
-            //     element: <PrivateRoute/>
-            // },
+            {
+                path: "/",
+                element: <Navigate to="/home" replace/>
+            },
             {
                 path: "/home",
                 element: <PrivateRoute><HomePage/></PrivateRoute>,

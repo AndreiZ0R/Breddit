@@ -7,12 +7,11 @@ type PrivateRouteProps = {
     children: ReactNode,
 }
 
-const PrivateRoute = ({children}: PrivateRouteProps): JSX.Element => {
+export default function PrivateRoute({children}: PrivateRouteProps) {
     const authState: AuthState = useSelector(selectAuthState);
     const location = useLocation();
 
     return authState.isLoggedIn ?
         (<>{children}</>)
-        : <Navigate to={`/login?from=${location.pathname}${location.search}`} replace={true} /*state={{from: `${location.pathname}${location.search}`}}*//>;
+        : <Navigate to={`/login?from=${location.pathname}${location.search}`} replace={true}/>;
 };
-export default PrivateRoute;

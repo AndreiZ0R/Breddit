@@ -25,6 +25,12 @@ export default function HomePage() {
             {
                 posts?.map((post: Post, index: number) => <PostCard post={post} key={index}/>)
             }
+            {
+                posts?.map((post: Post, index: number) => <PostCard post={post} key={index}/>)
+            }
+            {
+                posts?.map((post: Post, index: number) => <PostCard post={post} key={index}/>)
+            }
         </>
     )
 }

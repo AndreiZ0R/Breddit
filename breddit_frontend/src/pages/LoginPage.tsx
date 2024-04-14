@@ -10,7 +10,9 @@ import {getRedirectedPath} from "../utils/uriHelper.ts";
 import Button from "../components/Button.tsx";
 import IconButton from "../components/IconButton.tsx";
 import {FaSearch} from "react-icons/fa";
-import {themeColors} from "../../tailwind.config.ts";
+import InputField from "../components/InputField.tsx";
+import Checkbox from "../components/Checkbox.tsx";
+import Dropdown from "../components/Dropdown.tsx";
 
 export default function LoginPage() {
     // const count = useSelector(selectCount);
@@ -45,7 +47,7 @@ export default function LoginPage() {
 
     return (
         <>
-            <div className="flex flex-col h-screen w-screen p-5 bg-background-base">
+            <div className="flex flex-col h-full w-full p-5 bg-background-base scroll-auto">
                 {/*<button onClick={() => dispatch(increment())}>Increment</button>*/}
                 {/*<span>{count}</span>*/}
                 {/*<button onClick={() => dispatch(decrement())}>Increment</button>*/}
@@ -53,6 +55,12 @@ export default function LoginPage() {
                     setCredentials((prev) => ({...prev, username: newValue.target.value}))}/>
                 <input className="bg-bgColor test-primaryColor" type="text" value={credentials.password} onChange={(newValue) =>
                     setCredentials((prev) => ({...prev, password: newValue.target.value}))}/>
+                <div style={{height: 59, width: 15}}></div>
+                <InputField type="text" label="Email" errorLabel="something"/>
+                <InputField type="text" label="Email"/>
+                <Checkbox/>
+                <Dropdown/>
+
 
                 <div className="h-10 w-1"></div>
                 <div className="text-primary bg-background">Teeext</div>
@@ -62,7 +70,10 @@ export default function LoginPage() {
                 <Button onClick={() => dispatch(changeTheme(ThemeType.LIGHT))} label="Light theme"/>
                 <Button onClick={() => dispatch(changeTheme(ThemeType.DARK))} label="Dark theme"/>
                 <Button onClick={() => dispatch(changeTheme(ThemeType.GREEN))} label="Green theme"/>
-                <IconButton text="Search" icon={<FaSearch color={themeColors.primary.base} />}/>
+                {/*<IconButton text="Search" icon={<FaSearch color={themeColors.primary.base} />}/>*/}
+                <IconButton onClick={() => {
+                }} text="Search" icon={<FaSearch color="white"/>}/>
+
 
                 <button className="" onClick={startLogin}>Login</button>
             </div>

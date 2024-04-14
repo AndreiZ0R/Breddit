@@ -50,3 +50,7 @@ export const getThemeType = (theme: string): ThemeType => {
             return ThemeType.LIGHT;
     }
 }
+
+export type BaseProps = {
+    additionalStyles?: string,
+}
