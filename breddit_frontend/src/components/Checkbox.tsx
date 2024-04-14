@@ -26,9 +26,8 @@ export default function Checkbox() {
                     checked={isChecked}
                     onChange={handleCheckboxChange}
                 />
-                <span
-                    className={`slider mr-3 flex h-[26px] w-[50px] items-center rounded-full p-1 duration-200 ${
-                        isChecked ? 'bg-primary-base' : 'bg-gray-300'
+                <span className={`slider mr-3 flex h-[26px] w-[50px] items-center rounded-full p-1 duration-200 ${
+                        isChecked ? 'bg-primary-base' : 'bg-background-hover'
                     }`}
                 >
           <span
@@ -37,7 +36,7 @@ export default function Checkbox() {
               }`}
           ></span>
         </span>
-                <span className='label flex items-center text-sm font-medium text-black'>
+                <span className='label flex items-center text-sm font-medium text-background-text'>
           Auto Saver <span className='pl-1'> {isChecked ? 'On' : 'Off'} </span>
         </span>
             </label>

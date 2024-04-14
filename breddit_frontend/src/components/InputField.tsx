@@ -1,20 +1,25 @@
-import {HTMLInputTypeAttribute} from "react";
+import {ChangeEventHandler, HTMLInputTypeAttribute} from "react";
+import {BaseProps} from "../utils/constants.ts";
 
 type InputFieldProps = {
     label: string,
     type: HTMLInputTypeAttribute,
     errorLabel?: string | null,
-}
+    value: string | number,
+    onChange: ChangeEventHandler<HTMLInputElement>,
+} & BaseProps;
 
-export default function InputField({label, type, errorLabel = null}: InputFieldProps) {
-
+export default function InputField({label, type, value, onChange, errorLabel = null, additionalStyles}: InputFieldProps) {
+    //TODO: see password
     return (
         <>
-            <div className="relative mb-6">
+            <div className={`relative mb-6 ${additionalStyles}`}>
                 <input
                     type={type}
-                    className={`peer m-0 block h-[58px] w-full rounded border border-solid ${errorLabel ? "border-red-400" : "border-primary-lighter"} bg-transparent bg-clip-padding px-3 py-4 text-base font-normal leading-tight ${errorLabel ? "text-red-400" : "text-primary-lighter"} transition duration-200 ease-linear placeholder:text-transparent ${errorLabel ? "focus:border-red-500" : "focus:border-primary-base"} focus:pb-[0.625rem] focus:pt-[1.625rem] ${errorLabel ? "focus:text-red-300" : "focus:text-secondary-base"} focus:outline-none peer-focus:text-primary-base [&:not(:placeholder-shown)]:pb-[0.625rem] [&:not(:placeholder-shown)]:pt-[1.625rem] `}
+                    className={`peer m-0 block h-[58px] w-full rounded border border-solid ${errorLabel ? "border-red-400" : "border-primary-lighter"} bg-transparent bg-clip-padding px-3 py-4 text-base font-normal leading-tight ${errorLabel ? "text-red-400" : "text-primary-lighter"} transition duration-200 ease-linear placeholder:text-transparent ${errorLabel ? "focus:border-red-500" : "focus:border-primary-base"} focus:pb-[0.625rem] focus:pt-[1.625rem] ${errorLabel ? "focus:text-red-300" : "focus:text-background-text"} focus:outline-none peer-focus:text-primary-base [&:not(:placeholder-shown)]:pb-[0.625rem] [&:not(:placeholder-shown)]:pt-[1.625rem] `}
                     id={`floatingInput${label}`}
+                    value={value}
+                    onChange={onChange}
                     placeholder=""/>
                 <label
                     htmlFor={`floatingInput${label}`}

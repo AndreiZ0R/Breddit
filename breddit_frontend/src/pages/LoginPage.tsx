@@ -47,17 +47,21 @@ export default function LoginPage() {
 
     return (
         <>
-            <div className="flex flex-col h-full w-full p-5 bg-background-base scroll-auto">
+            <div className="flex flex-col content-container w-full bg-background-base scroll-auto p-3">
                 {/*<button onClick={() => dispatch(increment())}>Increment</button>*/}
                 {/*<span>{count}</span>*/}
                 {/*<button onClick={() => dispatch(decrement())}>Increment</button>*/}
-                <input className="bg-background text-primary" type="text" value={credentials.username} onChange={(newValue) =>
-                    setCredentials((prev) => ({...prev, username: newValue.target.value}))}/>
-                <input className="bg-bgColor test-primaryColor" type="text" value={credentials.password} onChange={(newValue) =>
-                    setCredentials((prev) => ({...prev, password: newValue.target.value}))}/>
                 <div style={{height: 59, width: 15}}></div>
-                <InputField type="text" label="Email" errorLabel="something"/>
-                <InputField type="text" label="Email"/>
+
+                <div className="flex flex-row gap-5">
+                    <InputField type="text" label="Username" additionalStyles={"w-1/2"} value={credentials.username} onChange={(newValue) =>
+                        setCredentials((prev) => ({...prev, username: newValue.target.value}))}/>
+                    <InputField type="password" label="Password" additionalStyles={"w-1/2"} value={credentials.password} onChange={(newValue) =>
+                        setCredentials((prev) => ({...prev, password: newValue.target.value}))}/>
+                </div>
+
+
+                <Button onClick={startLogin} label="Login" additionalStyles="w-1/2"/>
                 <Checkbox/>
                 <Dropdown/>
 
@@ -75,7 +79,6 @@ export default function LoginPage() {
                 }} text="Search" icon={<FaSearch color="white"/>}/>
 
 
-                <button className="" onClick={startLogin}>Login</button>
             </div>
         </>
     );

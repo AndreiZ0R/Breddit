@@ -14,6 +14,9 @@ export const themeColors = {
         text: "var(--background-text)",
         hover: "var(--background-hover)",
     },
+    nav: {
+        text: "var(--nav-text)",
+    }
 };
 
 export default {
@@ -21,8 +24,17 @@ export default {
     theme: {
         extend: {
             colors: {...themeColors},
+            height: {
+                fullWithoutNav: `calc(200px+500px)`,
+            }
         },
     },
-    plugins: [],
+    plugins: [({addUtilities}) => {
+        addUtilities({
+            '.content-container': {
+                height: `calc(100dvh - 98px)`,
+            }
+        })
+    }],
 } satisfies Config
 
