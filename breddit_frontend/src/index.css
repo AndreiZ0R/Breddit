@@ -16,7 +16,7 @@
         --background-text: rgb(36, 36, 36);
         --background-hover: rgb(224, 224, 224);
         --nav-text: rgb(36, 36, 36);
-    /*    TODO: inactive color!!! (for checkbox)*/
+    /*    TODO: inactive color!!! (for checkbox) + snackbar*/
     }
 
     :root[data-theme="dark"] {

@@ -1,7 +1,6 @@
 package com.andreiz0r.breddit.security;
 
 import com.andreiz0r.breddit.exception.ApiException;
-import com.andreiz0r.breddit.model.User;
 import com.andreiz0r.breddit.repository.UserRepository;
 import com.andreiz0r.breddit.utils.AppUtils;
 import lombok.RequiredArgsConstructor;

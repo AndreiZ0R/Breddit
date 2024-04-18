@@ -10,6 +10,7 @@ public class AppUtils {
     public static final String USER_CONTROLLER_ENDPOINT = "api/users";
     public static final String COMMENT_CONTROLLER_ENDPOINT = "/api/comments";
     public static final String MESSAGE_CONTROLLER_ENDPOINT = "/api/messages";
+    public static final String IMAGE_CONTROLLER_ENDPOINT = "/api/images";
     public static final String POST_CONTROLLER_ENDPOINT = "/api/posts";
     public static final String SUBTHREAD_CONTROLLER_ENDPOINT = "/api/subthreads";
     public static final String AUTHENTICATION_CONTROLLER_ENDPOINT = "/api/auth";
@@ -33,13 +34,15 @@ public class AppUtils {
     public final static int DEFAULT_JWT_EXPIRY = 24 * HOUR;
 
     public final static String[] WHITE_LIST_URLS = {
+            "/socket/**",
+            "/api/images/**",
             "/api/auth/**",
             "/v3/api-docs/**",
             "/v3/api-docs.yaml",
             "/swagger-ui/**",
             "/swagger-ui.html",
             "/bus/v3/api-docs/**"};
-    public final static List<String> JWT_FILTER_WHITELISTED_URLS = List.of("/register", "/login", "/swagger-ui", "/v3/", "/bus");
+    public final static List<String> JWT_FILTER_WHITELISTED_URLS = List.of("/socket","/images", "/register", "/login", "/swagger-ui", "/v3/", "/bus");
 
     public static String constructFailedToFetch(final Class<?> clazz) {
         return "Could not fetch " + clazz.getSimpleName() + "s";
@@ -47,6 +50,10 @@ public class AppUtils {
 
     public static String constructNotFoundMessage(Class<?> clazz, final String propertyName, final Object value) {
         return "Could not find " + clazz.getSimpleName() + " with " + propertyName + ": " + value;
+    }
+
+    public static String constructFailedToLoadResourceMessage(final String name) {
+        return "Could not find resource with name " + name;
     }
 
     public static String constructUpdateFailedMessage(Class<?> clazz, final String propertyName, final Object value) {

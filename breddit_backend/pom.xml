@@ -25,6 +25,7 @@
         <spring-security-web.version>6.1.5</spring-security-web.version>
         <spring-security-config.version>6.1.5</spring-security-config.version>
         <springdoc-openapi-starter-webmvc-ui.version>2.1.0</springdoc-openapi-starter-webmvc-ui.version>
+        <thumbnailator.version>0.4.20</thumbnailator.version>
     </properties>
 
 
@@ -134,11 +135,12 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
         </dependency>
+
+        <!-- Thumbnailator - image compression  -->
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <version>6.2.2</version>
-            <scope>test</scope>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>${thumbnailator.version}</version>
         </dependency>
 
 
