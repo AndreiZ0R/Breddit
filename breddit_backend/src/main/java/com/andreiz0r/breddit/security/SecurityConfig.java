@@ -1,6 +1,6 @@
 package com.andreiz0r.breddit.security;
 
-import com.andreiz0r.breddit.controller.AbstractRestController;
+import com.andreiz0r.breddit.controller.AbstractController;
 import com.andreiz0r.breddit.model.UserRole;
 import com.andreiz0r.breddit.utils.AppUtils;
 import jakarta.servlet.http.HttpServletResponse;
@@ -35,7 +35,7 @@ public class SecurityConfig {
                 )
                 .exceptionHandling(handler -> handler
                         .accessDeniedHandler(((request, response, accessDeniedException) ->
-                                AbstractRestController.setServletResponse(response, AppUtils.ACCESS_DENIED, HttpServletResponse.SC_FORBIDDEN)))
+                                AbstractController.setServletResponse(response, AppUtils.ACCESS_DENIED, HttpServletResponse.SC_FORBIDDEN)))
                 )
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

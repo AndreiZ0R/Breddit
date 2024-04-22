@@ -2,11 +2,22 @@ import {useState} from "react";
 
 import breddit_logo from "../assets/breddit_logo.png"
 import Button, {ButtonType} from "./Button.tsx";
+import {AuthState, endSession, selectAuthState} from "../redux/slices/authSlice.ts";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 const Navbar = () => {
     //TODO: styling + functionality
 
     const [open, setOpen] = useState(false);
+    const authState: AuthState = useSelector(selectAuthState);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const logout = () => {
+        dispatch(endSession());
+        navigate("/login");
+    }
 
     return (<>
             <header className={`flex w-full items-center bg-background-accent sticky top-0 left-0 z-20 border-b-2 border-primary-lighter`}>
@@ -48,11 +59,22 @@ const Navbar = () => {
                             </div>
                             <div className="hidden justify-end pr-16 sm:flex lg:pr-0 flex-row gap-5">
 
-                                <Button label="Sign In" onClick={() => {
-                                }} type={ButtonType.TERTIARY}/>
 
-                                <Button label="Sign Up" onClick={() => {
-                                }}/>
+                                {
+                                    authState.isLoggedIn ? (
+                                        <Button label="Log Out" onClick={logout}/>
+                                    ) : (
+                                        <>
+                                            <Button label="Sign In" onClick={() => {
+                                            }} type={ButtonType.TERTIARY}/>
+
+                                            <Button label="Sign Up" onClick={() => {
+                                            }}/>
+                                        </>
+                                    )
+                                }
+
+
                             </div>
                         </div>
                     </div>

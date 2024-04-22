@@ -11,14 +11,14 @@ import org.springframework.web.util.HtmlUtils;
 
 //TODO:
 @Controller
-public class MessageController extends AbstractRestController {
+public class MessageController extends AbstractController {
 
+    //TODO: save an incoming message + get all messages
     @MessageMapping("/chat")
     @SendTo("/topic/messages")
     public Response hello(@Payload final String name) {
         return this.successResponse("Hello " + HtmlUtils.htmlEscape(name));
     }
-
 
     @SubscribeMapping("/topic/messages")
     public String onSubscribe() {

@@ -17,7 +17,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.sql.Timestamp;
-//TODO: layers + maybe switch to Mono and Flux
+//TODO: rename to ChatMessage
 @Getter
 @Setter
 @Builder

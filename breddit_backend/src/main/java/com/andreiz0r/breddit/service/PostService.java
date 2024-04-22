@@ -1,7 +1,7 @@
 package com.andreiz0r.breddit.service;
 
-import com.andreiz0r.breddit.controller.message.CreatePostRequest;
-import com.andreiz0r.breddit.controller.message.UpdatePostRequest;
+import com.andreiz0r.breddit.controller.request.CreatePostRequest;
+import com.andreiz0r.breddit.controller.request.UpdatePostRequest;
 import com.andreiz0r.breddit.dto.DTOMapper;
 import com.andreiz0r.breddit.dto.PostDTO;
 import com.andreiz0r.breddit.model.Post;
@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,6 +44,7 @@ public class PostService {
                                                      .postedAt(AppUtils.timestampNow())
                                                      .subthreadId(request.getSubthreadId())
                                                      .comments(List.of())
+                                                     .imagesUrl(request.getImagesUrl())
                                                      .votes(0)
                                                      .build()
                                      )
@@ -62,5 +64,21 @@ public class PostService {
         return postRepository.findById(id)
                 .filter(__ -> postRepository.deletePostById(id) != 0)
                 .map(DTOMapper::mapPostToDTO);
+    }
+
+    public void addImageUrl(final Integer id, final String imageUrl) {
+        postRepository.findById(id)
+                .ifPresentOrElse(
+                        post -> {
+                            List<String> imagesUrl = new ArrayList<>(post.getImagesUrl());
+                            imagesUrl.add(imageUrl.replace(".jpg", ""));
+                            post.setImagesUrl(imagesUrl);
+                            postRepository.save(post);
+                        },
+                        () -> log.error("No post matching id: {}", id));
+    }
+
+    public Optional<List<String>> getPostImagesUrl(final Integer id) {
+        return postRepository.findById(id).map(Post::getImagesUrl);
     }
 }

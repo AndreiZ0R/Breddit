@@ -6,6 +6,7 @@ import com.andreiz0r.breddit.model.User;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Random;
 
 public class PostUtils {
 
@@ -24,7 +25,8 @@ public class PostUtils {
                 AppUtils.timestampNow(),
                 List.of(comments),
                 Randoms.randomInteger(),
-                Randoms.randomPositiveInteger()
+                Randoms.randomPositiveInteger(),
+                List.of(Randoms.alphabetic(), Randoms.alphabetic())
         );
     }
 
@@ -37,7 +39,8 @@ public class PostUtils {
                 AppUtils.timestampNow(),
                 List.of(CommentUtils.createRandomComment(), CommentUtils.createRandomComment()),
                 Randoms.randomInteger(),
-                Randoms.randomPositiveInteger()
+                Randoms.randomPositiveInteger(),
+                List.of(Randoms.alphabetic(), Randoms.alphabetic())
         );
     }
 
@@ -49,7 +52,8 @@ public class PostUtils {
             final Timestamp postedAt,
             final List<Comment> comments,
             final Integer votes,
-            final Integer subthreadId) {
-        return new Post(id, title, body, author, postedAt, comments, votes, subthreadId);
+            final Integer subthreadId,
+            final List<String> imageUrls) {
+        return new Post(id, title, body, author, postedAt, comments, votes, subthreadId, imageUrls);
     }
 }

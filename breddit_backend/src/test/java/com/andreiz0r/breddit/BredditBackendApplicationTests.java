@@ -83,7 +83,8 @@ class BredditBackendApplicationTests {
                          Timestamp.from(Instant.now()),
                          List.of(comment, comment2),
                          0,
-                         1
+                         1,
+                         List.of("abe")
                 )
         );
     }

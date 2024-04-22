@@ -1,4 +1,4 @@
-package com.andreiz0r.breddit.controller.message;
+package com.andreiz0r.breddit.controller.request;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

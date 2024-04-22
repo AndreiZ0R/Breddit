@@ -1,11 +1,11 @@
 package com.andreiz0r.breddit.controller;
 
-import com.andreiz0r.breddit.controller.message.UpdateUserRequest;
+import com.andreiz0r.breddit.controller.request.UpdateUserRequest;
 import com.andreiz0r.breddit.dto.UserDTO;
 import com.andreiz0r.breddit.model.User;
 import com.andreiz0r.breddit.response.Response;
 import com.andreiz0r.breddit.service.UserService;
-import com.andreiz0r.breddit.utils.AppUtils;
+import com.andreiz0r.breddit.utils.AppUtils.ReturnMessages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static com.andreiz0r.breddit.utils.AppUtils.USER_CONTROLLER_ENDPOINT;
+import static com.andreiz0r.breddit.utils.AppUtils.ControllerEndpoints.USER_CONTROLLER_ENDPOINT;
 
 @RestController
 @RequestMapping(USER_CONTROLLER_ENDPOINT)
 @RequiredArgsConstructor
 @CrossOrigin
-public class UserController extends AbstractRestController {
+public class UserController extends AbstractController {
     private final UserService userService;
 
     //todo: webflux
@@ -34,7 +34,7 @@ public class UserController extends AbstractRestController {
         List<UserDTO> users = userService.findAll();
         return !users.isEmpty() ?
                successResponse(users) :
-               failureResponse(AppUtils.constructFailedToFetch(User.class), HttpStatus.NOT_FOUND);
+               failureResponse(ReturnMessages.fetchFailed(User.class), HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/{id}")
@@ -42,27 +42,27 @@ public class UserController extends AbstractRestController {
         System.out.println("id: " + id);
         return userService.findById(id)
                 .map(this::successResponse)
-                .orElse(failureResponse(AppUtils.constructNotFoundMessage(User.class, "id", id), HttpStatus.NOT_FOUND));
+                .orElse(failureResponse(ReturnMessages.notFound(User.class, "id", id), HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/username={username}")
     public Response findByUsername(@PathVariable final String username) {
         return userService.findByUsername(username)
                 .map(this::successResponse)
-                .orElse(failureResponse(AppUtils.constructNotFoundMessage(User.class, "username", username), HttpStatus.NOT_FOUND));
+                .orElse(failureResponse(ReturnMessages.notFound(User.class, "username", username), HttpStatus.NOT_FOUND));
     }
 
     @PatchMapping("/{id}")
     public Response updateUser(@PathVariable final Integer id, @RequestBody final UpdateUserRequest request) {
         return userService.update(id, request)
                 .map(this::successResponse)
-                .orElse(failureResponse(AppUtils.constructNotFoundMessage(User.class, "id", id), HttpStatus.NOT_FOUND));
+                .orElse(failureResponse(ReturnMessages.notFound(User.class, "id", id), HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
     public Response deleteUserById(@PathVariable final Integer id) {
         return userService.deleteById(id)
                 .map(this::successResponse)
-                .orElse(failureResponse(AppUtils.constructFailedDeleteMessage(User.class, id), HttpStatus.NOT_FOUND));
+                .orElse(failureResponse(ReturnMessages.deleteFailed(User.class, id), HttpStatus.NOT_FOUND));
     }
 }

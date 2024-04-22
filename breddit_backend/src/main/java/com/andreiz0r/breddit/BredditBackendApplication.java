@@ -7,7 +7,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @OpenAPIDefinition
-@EnableAsync
 public class BredditBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BredditBackendApplication.class, args);

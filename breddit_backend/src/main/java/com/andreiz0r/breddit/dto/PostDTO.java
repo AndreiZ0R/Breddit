@@ -1,8 +1,5 @@
 package com.andreiz0r.breddit.dto;
 
-import com.andreiz0r.breddit.model.Comment;
-import com.andreiz0r.breddit.model.User;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -18,6 +15,7 @@ public record PostDTO(
         Timestamp postedAt,
         List<CommentDTO> comments,
         Integer votes,
-        Integer subthreadId
+        Integer subthreadId,
+        List<String> imagesUrl
 ) implements Serializable {
 }

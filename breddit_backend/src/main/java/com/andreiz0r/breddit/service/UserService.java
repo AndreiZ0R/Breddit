@@ -1,6 +1,6 @@
 package com.andreiz0r.breddit.service;
 
-import com.andreiz0r.breddit.controller.message.UpdateUserRequest;
+import com.andreiz0r.breddit.controller.request.UpdateUserRequest;
 import com.andreiz0r.breddit.dto.DTOMapper;
 import com.andreiz0r.breddit.dto.UserDTO;
 import com.andreiz0r.breddit.repository.UserRepository;

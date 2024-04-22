@@ -1,11 +1,12 @@
 package com.andreiz0r.breddit.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.MediaType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class TestUtils {
     }
 
     public static Object createResponseHeaders(final HttpHeaders headers) {
-        headers.set(HttpHeaders.CONTENT_TYPE, AppUtils.APPLICATION_JSON);
+        headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         return headers;
     }
 

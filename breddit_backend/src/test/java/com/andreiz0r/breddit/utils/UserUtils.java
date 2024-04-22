@@ -6,7 +6,6 @@ import com.andreiz0r.breddit.model.UserRole;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-
 public class UserUtils {
 
     public static User copy(final User user) {

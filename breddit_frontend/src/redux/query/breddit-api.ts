@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import {AuthResponse, BaseModel, BaseResponse, DomainResponse} from 'models/models.ts';
+import {AuthResponse, BaseModel, BaseResponse, DomainResponse, ListResponse} from 'models/models.ts';
 import {AuthRequest} from "models/requests.ts";
 import Cookies from "js-cookie";
 import {Constants, Endpoints, HttpMethods, Queries} from "../../utils/constants.ts";
@@ -32,6 +32,11 @@ export const bredditApi = createApi({
             }],
         }),
 
+        getPostPictures: builder.query<ListResponse, bigint>({
+            query: (postId: bigint) => `${Endpoints.images}/post/${postId}`,
+            transformErrorResponse: (response: { status: number, data: BaseResponse }): BaseResponse => response.data as BaseResponse,
+        }),
+
         login: builder.mutation<AuthResponse, AuthRequest>({
             query: (authRequest: AuthRequest) => ({
                 url: `${Endpoints.auth}/login`,
@@ -56,4 +61,5 @@ export const useGetModel = <T extends BaseModel>(endpoint: string) => {
 export const {
     useGetDomainModelQuery,
     useLoginMutation,
+    useGetPostPicturesQuery,
 } = bredditApi;

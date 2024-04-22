@@ -1,7 +1,10 @@
 package com.andreiz0r.breddit.config;
 
 import com.andreiz0r.breddit.interceptors.LoggingRequestsInterceptor;
+import com.andreiz0r.breddit.utils.ImageTypeConverter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.Formatter;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -13,7 +16,7 @@ import static com.andreiz0r.breddit.utils.AppUtils.VITE_DEFAULT_HOST;
 
 @Component
 @RequiredArgsConstructor
-public class AppWebMvcConfigurer implements WebMvcConfigurer {
+public class AppWebMvcConfig implements WebMvcConfigurer {
 
     private final LoggingRequestsInterceptor loggingRequestsInterceptor;
 

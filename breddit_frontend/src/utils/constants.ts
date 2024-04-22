@@ -13,6 +13,7 @@ export const Endpoints = {
     comments: "/comments",
     posts: "/posts",
     subthreads: "/subthreads",
+    images: "/images",
 // const messagesEndpoint = "/messages";
 };
 

@@ -1,6 +1,6 @@
 package com.andreiz0r.breddit.exception;
 
-import com.andreiz0r.breddit.controller.AbstractRestController;
+import com.andreiz0r.breddit.controller.AbstractController;
 import com.andreiz0r.breddit.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 @RestControllerAdvice
 @Slf4j
-public class AppExceptionHandler extends AbstractRestController {
+public class AppExceptionHandler extends AbstractController {
 
     @ExceptionHandler({Exception.class, RuntimeException.class, ApiException.class})
     public Response handle(final Exception exception) {

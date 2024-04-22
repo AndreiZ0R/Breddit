@@ -5,22 +5,20 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.concurrent.Executor;
-import java.util.concurrent.ThreadPoolExecutor;
 
 @Configuration
 @RequiredArgsConstructor
+@EnableAsync
 public class AppConfig {
 
     private final UserManagerConfig userManagerConfig;
@@ -31,7 +29,7 @@ public class AppConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userManagerConfig);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
@@ -44,12 +42,12 @@ public class AppConfig {
         return config.getAuthenticationManager();
     }
 
-    @Bean(name = "updateTaskExecutor")
-    public Executor updateTaskExecutor() {
+    @Bean
+    public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(100);
-        executor.setMaxPoolSize(100);
-        executor.setQueueCapacity(100);
+        executor.setCorePoolSize(50);
+        executor.setMaxPoolSize(50);
+        executor.setQueueCapacity(50);
         executor.setThreadNamePrefix("UpdateTaskClient-");
         executor.initialize();
         return executor;

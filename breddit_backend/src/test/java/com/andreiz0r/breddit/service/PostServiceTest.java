@@ -1,6 +1,6 @@
 package com.andreiz0r.breddit.service;
 
-import com.andreiz0r.breddit.controller.message.UpdatePostRequest;
+import com.andreiz0r.breddit.controller.request.UpdatePostRequest;
 import com.andreiz0r.breddit.dto.DTOMapper;
 import com.andreiz0r.breddit.dto.PostDTO;
 import com.andreiz0r.breddit.model.Post;

@@ -6,7 +6,6 @@ interface AuthRequest extends BaseRequest {
     password: string
 }
 
-
 export type {
     BaseRequest,
     AuthRequest

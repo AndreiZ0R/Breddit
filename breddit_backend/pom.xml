@@ -25,7 +25,7 @@
         <spring-security-web.version>6.1.5</spring-security-web.version>
         <spring-security-config.version>6.1.5</spring-security-config.version>
         <springdoc-openapi-starter-webmvc-ui.version>2.1.0</springdoc-openapi-starter-webmvc-ui.version>
-        <thumbnailator.version>0.4.20</thumbnailator.version>
+        <scalr.version>4.2</scalr.version>
     </properties>
 
 
@@ -136,12 +136,13 @@
             <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
         </dependency>
 
-        <!-- Thumbnailator - image compression  -->
+        <!-- Scalr for compression -->
         <dependency>
-            <groupId>net.coobird</groupId>
-            <artifactId>thumbnailator</artifactId>
-            <version>${thumbnailator.version}</version>
+            <groupId>org.imgscalr</groupId>
+            <artifactId>imgscalr-lib</artifactId>
+            <version>${scalr.version}</version>
         </dependency>
+
 
 
     </dependencies>

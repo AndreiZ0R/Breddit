@@ -63,7 +63,8 @@ public class DTOMapper {
                 post.getPostedAt(),
                 post.getComments().stream().map(DTOMapper::mapCommentToDTO).toList(),
                 post.getVotes(),
-                post.getSubthreadId()
+                post.getSubthreadId(),
+                post.getImagesUrl()
         );
     }
 

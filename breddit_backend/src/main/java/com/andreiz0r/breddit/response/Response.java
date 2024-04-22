@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.ToString;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import java.io.Serializable;
@@ -75,7 +76,7 @@ public class Response extends ResponseEntity<Object> implements Serializable {
         public Response build() {
             body.put(AppUtils.MESSAGE, message);
             body.put(AppUtils.STATUS, status);
-            headers.set(HttpHeaders.CONTENT_TYPE, AppUtils.APPLICATION_JSON);
+            headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
             return new Response(this);
         }

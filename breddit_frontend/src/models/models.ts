@@ -20,7 +20,6 @@ interface ListResponse extends BaseResponse {
 
 type DomainResponse = SingleResponse | ListResponse;
 
-
 type UserRole = "User" | "Mod";
 
 interface User extends DomainModel {
@@ -33,7 +32,7 @@ interface User extends DomainModel {
 
     isModerator(role: UserRole): boolean;
 }
-//TODO: map to DTOs!
+
 interface Comment extends DomainModel {
     author: User,
     body: string,
@@ -51,6 +50,7 @@ interface Post extends DomainModel {
     comments: Comment[],
     votes: bigint,
     subthreadId: bigint,
+    imagesUrl: string[],
 }
 
 interface Subthread extends DomainModel {
@@ -67,7 +67,7 @@ interface Message extends DomainModel {
     sentAt: Date,
 }
 
-interface AuthResponse extends BaseModel{
+interface AuthResponse extends BaseModel {
     token: string,
     user: User,
 }

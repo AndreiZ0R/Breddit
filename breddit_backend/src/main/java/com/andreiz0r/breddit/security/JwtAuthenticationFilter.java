@@ -1,6 +1,6 @@
 package com.andreiz0r.breddit.security;
 
-import com.andreiz0r.breddit.controller.AbstractRestController;
+import com.andreiz0r.breddit.controller.AbstractController;
 import com.andreiz0r.breddit.utils.AppUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
@@ -67,7 +67,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @SneakyThrows
     private void handleInvalidAuth(final HttpServletResponse response, final String message, final int status) {
-        AbstractRestController.setServletResponse(response, message, status);
+        AbstractController.setServletResponse(response, message, status);
         //TODO: check those
 //        response.setContentType("text/html");
 //        response.sendRedirect("/login");

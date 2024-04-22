@@ -1,27 +1,19 @@
-import {useDispatch, useSelector} from "react-redux";
-import {AuthState, endSession, selectAuthState} from "../redux/slices/authSlice.ts";
-import {useGetModel} from "../redux/query/breddit-api.ts";
-import {Comment, Post} from "../models/models.ts";
+import {useSelector} from "react-redux";
+import {AuthState, selectAuthState} from "../redux/slices/authSlice.ts";
+import {useGetModel, useGetPostPicturesQuery} from "../redux/query/breddit-api.ts";
+import {BaseResponse, Comment, Post} from "../models/models.ts";
 import {Endpoints} from "../utils/constants.ts";
 import {CSSProperties} from "react";
-import {useNavigate} from "react-router-dom";
 
 export default function HomePage() {
     const authState: AuthState = useSelector(selectAuthState);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const posts = useGetModel<Post[]>(Endpoints.posts);
 
-    const logout = () => {
-        dispatch(endSession());
-        navigate("/login");
-    }
 
     return (
         <>
             <div>Hello, {authState.user?.username}</div>
             <div>Today's posts:</div>
-            <button onClick={logout}>Log out</button>
             {
                 posts?.map((post: Post, index: number) => <PostCard post={post} key={index}/>)
             }
@@ -67,12 +59,28 @@ const PostCard = ({post}: PostCardProps) => {
         marginBottom: "25px",
     }
 
+    const {data: postImages, error} = useGetPostPicturesQuery(post.id);
+
+    if (error) {
+        //TODO:
+        const {message} = error as BaseResponse;
+        console.log(message);
+    }
+
     return (
         <div style={wrapperStyle} key={post.id}>
             <div style={titleStyle} key={post.title}>{post.title}</div>
             <div style={authorStyle} key={post.author.username}>by {post.author.username}</div>
             <div style={divider}></div>
             <div>{post.body}</div>
+
+            {
+                postImages?.payload.map((img, idx) => {
+                    return <img className="rounded-xl" src={`data:image/jpeg;base64,${img}`} key={idx} alt="post img"/>
+                })
+            }
+
+
             <div>{`Votes: ${post.votes.toString()}`}</div>
             <div>Comments:</div>
             {

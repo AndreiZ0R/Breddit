@@ -1,4 +1,4 @@
-package com.andreiz0r.breddit.controller.message;
+package com.andreiz0r.breddit.controller.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,11 +8,15 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UpdatePostRequest {
+public class UpdateUserRequest {
     @JsonProperty
-    private String title;
+    private String username;
     @JsonProperty
-    private String body;
+    private String password;
     @JsonProperty
-    private Integer votes;
+    private String email;
+    @JsonProperty
+    private String country;
+    @JsonProperty
+    private String role;
 }

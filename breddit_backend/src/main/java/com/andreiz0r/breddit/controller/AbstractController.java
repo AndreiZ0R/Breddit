@@ -2,19 +2,33 @@ package com.andreiz0r.breddit.controller;
 
 import com.andreiz0r.breddit.response.BasicResponse;
 import com.andreiz0r.breddit.response.Response;
+import com.andreiz0r.breddit.utils.Topic;
 import com.andreiz0r.breddit.utils.AppUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.util.Map;
 
 //TODO: maybe make this and services an abstract version for CRUDs
-public class AbstractRestController {
+public class AbstractController {
 
     private final static ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
+
+    public void sendSuccessMessage(final Object body, final Topic topic) {
+        simpMessagingTemplate.convertAndSend(topic.toString(), successResponse(body));
+    }
+
+    public void sendFailureMessage(final String errorMessage, final Topic topic) {
+        simpMessagingTemplate.convertAndSend(topic.toString(), failureResponse(errorMessage));
+    }
 
     public Response successResponse() {
         return response(HttpStatus.OK, AppUtils.SUCCESS);
@@ -79,7 +93,7 @@ public class AbstractRestController {
 
     @SneakyThrows
     public static void setServletResponse(final HttpServletResponse response, final String message, final int status) {
-        response.setContentType(AppUtils.APPLICATION_JSON);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(status);
         response.getWriter().println(objectMapper.writeValueAsString(basicResponse(message, HttpStatus.valueOf(status))));
     }
