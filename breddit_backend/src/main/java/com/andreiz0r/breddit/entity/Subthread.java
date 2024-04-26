@@ -1,4 +1,4 @@
-package com.andreiz0r.breddit.model;
+package com.andreiz0r.breddit.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -6,8 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -18,40 +16,32 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
 @Setter
 @Builder
 @Entity
-@Table(name = "comment")
+@Table(name = "subthread")
 @OnDelete(action = OnDeleteAction.CASCADE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comment {
+public class Subthread {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false, insertable = false)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
+    private String name;
 
-    @Column(nullable = false)
-    private String body;
+    private String description;
 
-    @Column(nullable = false)
-    private Timestamp postedAt;
+    @Column(columnDefinition = "integer default 0")
+    private Integer membersCount;
 
-    @Column(nullable = false, columnDefinition = "integer default 0")
-    private Integer votes;
+    @OneToMany(targetEntity = Post.class, mappedBy = "subthreadId", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Post> posts;
 
-    @Column(nullable = false, unique = false)
-    private Integer postId;
-
-    @Column
-    private Integer parentId;
+    //TODO: picture + banner
 }

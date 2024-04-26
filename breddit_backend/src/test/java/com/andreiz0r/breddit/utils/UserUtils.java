@@ -1,7 +1,7 @@
 package com.andreiz0r.breddit.utils;
 
-import com.andreiz0r.breddit.model.User;
-import com.andreiz0r.breddit.model.UserRole;
+import com.andreiz0r.breddit.entity.User;
+import com.andreiz0r.breddit.entity.UserRole;
 
 import java.sql.Date;
 import java.sql.Timestamp;

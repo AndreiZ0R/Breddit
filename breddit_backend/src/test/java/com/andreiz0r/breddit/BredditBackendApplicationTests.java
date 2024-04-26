@@ -1,10 +1,10 @@
 package com.andreiz0r.breddit;
 
-import com.andreiz0r.breddit.model.Comment;
-import com.andreiz0r.breddit.model.Post;
-import com.andreiz0r.breddit.model.Subthread;
-import com.andreiz0r.breddit.model.User;
-import com.andreiz0r.breddit.model.UserRole;
+import com.andreiz0r.breddit.entity.Comment;
+import com.andreiz0r.breddit.entity.Post;
+import com.andreiz0r.breddit.entity.Subthread;
+import com.andreiz0r.breddit.entity.User;
+import com.andreiz0r.breddit.entity.UserRole;
 import com.andreiz0r.breddit.repository.CommentRepository;
 import com.andreiz0r.breddit.repository.PostRepository;
 import com.andreiz0r.breddit.repository.SubthreadRepository;

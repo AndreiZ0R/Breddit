@@ -1,4 +1,4 @@
-package com.andreiz0r.breddit.model;
+package com.andreiz0r.breddit.entity;
 
 import com.andreiz0r.breddit.utils.StringListConverter;
 import jakarta.persistence.CascadeType;

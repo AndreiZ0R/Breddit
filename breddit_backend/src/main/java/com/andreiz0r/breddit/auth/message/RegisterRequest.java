@@ -1,13 +1,12 @@
 package com.andreiz0r.breddit.auth.message;
 
-import com.andreiz0r.breddit.model.UserRole;
+import com.andreiz0r.breddit.entity.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor

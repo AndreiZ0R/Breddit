@@ -1,9 +1,18 @@
 export const Constants = {
     AUTHORIZATION_HEADER: "Authorization",
+    SESSION_HEADER: "SESSION_ID",
     BUILD_AUTHORIZATION_HEADER: (token: string): string => `Bearer ${token}`,
     TOKEN: "token",
     THEME: "theme",
     USER: "user",
+    SESSION_ID: "sessionId",
+}
+
+export const AppRoutes = {
+    PROTECTED: "/",
+    HOME: "/home",
+    SESSIONS: "/sessions",
+    LOGIN: "/login",
 }
 
 export const Endpoints = {
@@ -15,15 +24,17 @@ export const Endpoints = {
     subthreads: "/subthreads",
     images: "/images",
 // const messagesEndpoint = "/messages";
+    sessions: "/sessions",
 };
 
 export const Queries = {
-    login: "/login",
-    register: "/register",
-    getUsers: "/getUsers",
-    getComments: "/getComments",
-    getPosts: "/getPosts",
-    getSubthreads: "/getSubthreads",
+    login: "LOGIN",
+    register: "REGISTER",
+    getUsers: "USERS",
+    getComments: "COMMENTS",
+    getPosts: "POSTS",
+    getSubthreads: "SUBTHREADS",
+    getSessions: "SESSIONS",
 };
 
 export const HttpMethods = {

@@ -3,7 +3,7 @@ package com.andreiz0r.breddit.controller;
 import com.andreiz0r.breddit.controller.request.CreateCommentRequest;
 import com.andreiz0r.breddit.controller.request.UpdateCommentRequest;
 import com.andreiz0r.breddit.dto.CommentDTO;
-import com.andreiz0r.breddit.model.Comment;
+import com.andreiz0r.breddit.entity.Comment;
 import com.andreiz0r.breddit.response.Response;
 import com.andreiz0r.breddit.service.CommentService;
 import com.andreiz0r.breddit.utils.AppUtils.ReturnMessages;

@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import {AuthResponse, BaseModel, BaseResponse, DomainResponse, ListResponse} from 'models/models.ts';
+import {AuthResponse, BaseModel, BaseResponse, DomainResponse, ListResponse, SessionResponse} from 'models/models.ts';
 import {AuthRequest} from "models/requests.ts";
 import Cookies from "js-cookie";
 import {Constants, Endpoints, HttpMethods, Queries} from "../../utils/constants.ts";
@@ -8,9 +8,14 @@ const customBaseQuery = fetchBaseQuery({
     baseUrl: Endpoints.baseURI,
     prepareHeaders: (headers: Headers, /*{getState}*/) => {
         const token = Cookies.get(Constants.TOKEN) ?? "";
+        const sessionId = Cookies.get(Constants.SESSION_ID) ?? "";
 
         if (token) {
             headers.set(Constants.AUTHORIZATION_HEADER, Constants.BUILD_AUTHORIZATION_HEADER(token));
+        }
+
+        if (sessionId) {
+            headers.set(Constants.SESSION_HEADER, sessionId);
         }
 
         return headers;
@@ -21,21 +26,26 @@ const customBaseQuery = fetchBaseQuery({
 export const bredditApi = createApi({
     reducerPath: "bredditApi",
     baseQuery: customBaseQuery,
-    tagTypes: [Queries.login, Queries.getUsers, Queries.getPosts, Queries.getComments, Queries.getSubthreads],
+    tagTypes: [Queries.getSessions],
     endpoints: (builder) => ({
         getDomainModel: builder.query<DomainResponse, string>({
             query: (endpoint: string) => endpoint,
-            // @ts-ignore
+            //@ts-ignore
             // providesTags: (result, error, arg) => [{
             //     type: 'Record' as const,
             //     id: arg,
             // }],
-            providesTags: [Queries.getPosts],
         }),
 
         getPostPictures: builder.query<ListResponse, bigint>({
             query: (postId: bigint) => `${Endpoints.images}/post/${postId}`,
             transformErrorResponse: (response: { status: number, data: BaseResponse }): BaseResponse => response.data as BaseResponse,
+        }),
+
+        getActiveSessions: builder.query<SessionResponse[], void>({
+            query: () => Endpoints.sessions,
+            transformResponse: (response: { payload: SessionResponse[] }): SessionResponse[] => response.payload as SessionResponse[],
+            providesTags: [Queries.getSessions]
         }),
 
         login: builder.mutation<AuthResponse, AuthRequest>({
@@ -46,9 +56,13 @@ export const bredditApi = createApi({
             }),
             transformResponse: (response: { payload: AuthResponse }): AuthResponse => response.payload as AuthResponse,
             transformErrorResponse: (response: { status: number, data: BaseResponse }): BaseResponse => response.data as BaseResponse,
+            invalidatesTags: [Queries.getSessions],
         }),
 
-
+        logout: builder.mutation<BaseResponse, void>({
+            query: () => `${Endpoints.auth}/logout`,
+            invalidatesTags: [Queries.getSessions]
+        }),
     }),
 });
 
@@ -63,4 +77,6 @@ export const {
     useGetDomainModelQuery,
     useLoginMutation,
     useGetPostPicturesQuery,
+    useGetActiveSessionsQuery,
+    useLogoutMutation,
 } = bredditApi;

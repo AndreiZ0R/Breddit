@@ -1,4 +1,4 @@
-package com.andreiz0r.breddit.model;
+package com.andreiz0r.breddit.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

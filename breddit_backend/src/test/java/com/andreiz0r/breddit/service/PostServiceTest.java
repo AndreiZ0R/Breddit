@@ -3,7 +3,7 @@ package com.andreiz0r.breddit.service;
 import com.andreiz0r.breddit.controller.request.UpdatePostRequest;
 import com.andreiz0r.breddit.dto.DTOMapper;
 import com.andreiz0r.breddit.dto.PostDTO;
-import com.andreiz0r.breddit.model.Post;
+import com.andreiz0r.breddit.entity.Post;
 import com.andreiz0r.breddit.repository.PostRepository;
 import com.andreiz0r.breddit.repository.UserRepository;
 import com.andreiz0r.breddit.utils.AbstractUnitTest;

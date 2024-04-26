@@ -1,6 +1,6 @@
 package com.andreiz0r.breddit.repository;
 
-import com.andreiz0r.breddit.model.Comment;
+import com.andreiz0r.breddit.entity.Comment;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

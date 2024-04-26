@@ -1,6 +1,6 @@
 package com.andreiz0r.breddit.controller;
 
-import com.andreiz0r.breddit.model.User;
+import com.andreiz0r.breddit.entity.User;
 import com.andreiz0r.breddit.response.Response;
 import com.andreiz0r.breddit.service.ImageService;
 import com.andreiz0r.breddit.service.PostService;
@@ -81,4 +81,5 @@ public class ImageController extends AbstractController {
         return successResponse(ReturnMessages.FILE_UPLOAD_STARTED);
     }
     //TODO: keep in mind for frontend, design pages to that they can be shareable(aka get from location).
+    //TODO: on post delete, also delete images from it!
 }

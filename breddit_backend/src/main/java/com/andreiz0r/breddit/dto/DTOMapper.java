@@ -1,11 +1,12 @@
 package com.andreiz0r.breddit.dto;
 
+import com.andreiz0r.breddit.entity.ChatMessage;
+import com.andreiz0r.breddit.entity.Comment;
+import com.andreiz0r.breddit.entity.Post;
+import com.andreiz0r.breddit.entity.Subthread;
+import com.andreiz0r.breddit.entity.User;
+import com.andreiz0r.breddit.entity.UserSession;
 import com.andreiz0r.breddit.exception.ApiException;
-import com.andreiz0r.breddit.model.Comment;
-import com.andreiz0r.breddit.model.Message;
-import com.andreiz0r.breddit.model.Post;
-import com.andreiz0r.breddit.model.Subthread;
-import com.andreiz0r.breddit.model.User;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
@@ -44,13 +45,13 @@ public class DTOMapper {
         );
     }
 
-    public static MessageDTO mapMessageToDTO(final Message message) {
+    public static MessageDTO mapMessageToDTO(final ChatMessage chatMessage) {
         return new MessageDTO(
-                message.getId(),
-                mapUserToDTO(message.getSender()),
-                mapUserToDTO(message.getReceiver()),
-                message.getContent(),
-                message.getSentAt()
+                chatMessage.getId(),
+                mapUserToDTO(chatMessage.getSender()),
+                mapUserToDTO(chatMessage.getReceiver()),
+                chatMessage.getContent(),
+                chatMessage.getSentAt()
         );
     }
 
@@ -75,6 +76,13 @@ public class DTOMapper {
                 subthread.getDescription(),
                 subthread.getMembersCount(),
                 subthread.getPosts().stream().map(DTOMapper::mapPostToDTO).toList()
+        );
+    }
+
+    public static UserSessionDTO mapUserSessionToDTO(final UserSession userSession) {
+        return new UserSessionDTO(
+                userSession.getSessionId(),
+                mapUserToDTO(userSession.getUser())
         );
     }
 }

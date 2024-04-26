@@ -1,8 +1,7 @@
 package com.andreiz0r.breddit.utils;
 
 import com.andreiz0r.breddit.auth.message.RegisterRequest;
-import com.andreiz0r.breddit.auth.message.RegisterResponse;
-import com.andreiz0r.breddit.model.User;
+import com.andreiz0r.breddit.entity.User;
 
 public class AuthUtils {
 

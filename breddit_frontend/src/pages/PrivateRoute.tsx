@@ -2,6 +2,7 @@ import {useSelector} from "react-redux";
 import {AuthState, selectAuthState} from "../redux/slices/authSlice.ts";
 import {Navigate, useLocation} from 'react-router-dom';
 import {ReactNode} from "react";
+import {AppRoutes} from "../utils/constants.ts";
 
 type PrivateRouteProps = {
     children: ReactNode,
@@ -13,5 +14,5 @@ export default function PrivateRoute({children}: PrivateRouteProps) {
 
     return authState.isLoggedIn ?
         (<>{children}</>)
-        : <Navigate to={`/login?from=${location.pathname}${location.search}`} replace={true}/>;
+        : <Navigate to={`${AppRoutes.LOGIN}?from=${location.pathname}${location.search}`} replace={true}/>;
 };

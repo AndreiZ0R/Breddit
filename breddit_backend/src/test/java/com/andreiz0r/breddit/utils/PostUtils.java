@@ -1,12 +1,11 @@
 package com.andreiz0r.breddit.utils;
 
-import com.andreiz0r.breddit.model.Comment;
-import com.andreiz0r.breddit.model.Post;
-import com.andreiz0r.breddit.model.User;
+import com.andreiz0r.breddit.entity.Comment;
+import com.andreiz0r.breddit.entity.Post;
+import com.andreiz0r.breddit.entity.User;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Random;
 
 public class PostUtils {
 

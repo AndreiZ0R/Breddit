@@ -1,6 +1,6 @@
 package com.andreiz0r.breddit.dto;
 
-import com.andreiz0r.breddit.model.UserRole;
+import com.andreiz0r.breddit.entity.UserRole;
 
 import java.io.Serializable;
 import java.sql.Date;

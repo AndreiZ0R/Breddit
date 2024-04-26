@@ -1,7 +1,7 @@
 package com.andreiz0r.breddit.utils;
 
-import com.andreiz0r.breddit.model.Post;
-import com.andreiz0r.breddit.model.Subthread;
+import com.andreiz0r.breddit.entity.Post;
+import com.andreiz0r.breddit.entity.Subthread;
 
 import java.util.List;
 

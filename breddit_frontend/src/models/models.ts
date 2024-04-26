@@ -67,8 +67,16 @@ interface Message extends DomainModel {
     sentAt: Date,
 }
 
+// Responses
+
 interface AuthResponse extends BaseModel {
     token: string,
+    user: User,
+    sessionId: string,
+}
+
+interface SessionResponse{
+    sessionId: string,
     user: User,
 }
 
@@ -86,4 +94,5 @@ export type {
     Subthread,
     Message,
     AuthResponse,
+    SessionResponse
 };

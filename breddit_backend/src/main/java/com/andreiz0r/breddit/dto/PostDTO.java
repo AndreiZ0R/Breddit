@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * DTO for {@link com.andreiz0r.breddit.model.Post}
+ * DTO for {@link com.andreiz0r.breddit.entity.Post}
  */
 public record PostDTO(
         Integer id,

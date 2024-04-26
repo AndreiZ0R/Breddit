@@ -10,7 +10,8 @@ import Navbar from "./components/Navbar.tsx";
 import SockJS from "sockjs-client";
 import {Client, over} from "stompjs";
 import {createContext} from "react";
-
+import SessionsPage from "./pages/SessionsPage.tsx";
+import {AppRoutes} from "./utils/constants.ts";
 
 function Layout() {
     return (
@@ -25,19 +26,23 @@ function Layout() {
 const router = createBrowserRouter([
     {
         element: <Layout/>,
-        // errorElement: <ErrorElement/>,
+        // errorElement: <div>Not found</div>,
         children: [
             {
-                path: "/",
-                element: <Navigate to="/home" replace/>
+                path: AppRoutes.PROTECTED,
+                element: <Navigate to={AppRoutes.HOME} replace/>
             },
             {
-                path: "/home",
+                path: AppRoutes.HOME,
                 element: <PrivateRoute><HomePage/></PrivateRoute>,
             },
             {
-                path: "/login",
+                path: AppRoutes.LOGIN,
                 element: <LoginPage/>
+            },
+            {
+                path: AppRoutes.SESSIONS,
+                element: <PrivateRoute><SessionsPage/></PrivateRoute>
             },
             {
                 path: "/ok",
@@ -49,10 +54,9 @@ const router = createBrowserRouter([
     }
 ]);
 
-// const sock: WebSocket = new SockJS('http://localhost:8080/socket');
-const stompClient = over(new SockJS('http://localhost:8080/socket'));
+const stompClient: Client = over(new SockJS('http://localhost:8080/socket'));
 stompClient.connect({}, _ => {
-    console.log("connect");
+    console.log("WS Client connected.");
 })
 
 export const WsContext = createContext<Client>(stompClient);
@@ -60,11 +64,9 @@ export const WsContext = createContext<Client>(stompClient);
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
-    // <React.StrictMode>
     <Provider store={store}>
         <WsContext.Provider value={stompClient}>
             <RouterProvider router={router}/>
         </WsContext.Provider>
     </Provider>
-    // </React.StrictMode>,
 )

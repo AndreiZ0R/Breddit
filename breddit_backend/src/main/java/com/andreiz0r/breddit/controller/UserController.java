@@ -2,7 +2,7 @@ package com.andreiz0r.breddit.controller;
 
 import com.andreiz0r.breddit.controller.request.UpdateUserRequest;
 import com.andreiz0r.breddit.dto.UserDTO;
-import com.andreiz0r.breddit.model.User;
+import com.andreiz0r.breddit.entity.User;
 import com.andreiz0r.breddit.response.Response;
 import com.andreiz0r.breddit.service.UserService;
 import com.andreiz0r.breddit.utils.AppUtils.ReturnMessages;

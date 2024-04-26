@@ -17,6 +17,7 @@ public class AppUtils {
     public final static String BAD_TOKEN = "User must provide a valid token";
     public final static String ACCESS_DENIED = "Access denied, need higher privileges";
     public final static String JWT_START_STRING = "Bearer ";
+    public final static String SESSION_ID_HEADER = "SESSION_ID";
     public final static String HOST = "http://localhost:";
     public final static String VITE_DEFAULT_HOST = "http://localhost:5173";
     public final static String API_DEFAULT_HOST = "http://localhost:8080";
@@ -68,6 +69,10 @@ public class AppUtils {
             return "Could not find " + clazz.getSimpleName() + " with " + propertyName + ": " + value;
         }
 
+        static String notFound(Class<?> clazz) {
+            return "Could not find " + clazz.getSimpleName();
+        }
+
         static String failedToLoadResource(final String name) {
             return "Could not find resource with name " + name;
         }
@@ -105,6 +110,7 @@ public class AppUtils {
         String POST_CONTROLLER_ENDPOINT = "/api/posts";
         String SUBTHREAD_CONTROLLER_ENDPOINT = "/api/subthreads";
         String AUTHENTICATION_CONTROLLER_ENDPOINT = "/api/auth";
+        String USER_SESSION_ENDPOINT = "/api/sessions";
     }
 
     public interface Images {

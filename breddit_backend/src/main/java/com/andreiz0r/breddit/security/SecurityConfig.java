@@ -1,7 +1,7 @@
 package com.andreiz0r.breddit.security;
 
 import com.andreiz0r.breddit.controller.AbstractController;
-import com.andreiz0r.breddit.model.UserRole;
+import com.andreiz0r.breddit.entity.UserRole;
 import com.andreiz0r.breddit.utils.AppUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

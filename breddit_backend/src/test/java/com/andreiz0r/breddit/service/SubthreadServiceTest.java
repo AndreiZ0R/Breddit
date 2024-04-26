@@ -3,7 +3,7 @@ package com.andreiz0r.breddit.service;
 import com.andreiz0r.breddit.controller.request.UpdateSubthreadRequest;
 import com.andreiz0r.breddit.dto.DTOMapper;
 import com.andreiz0r.breddit.dto.SubthreadDTO;
-import com.andreiz0r.breddit.model.Subthread;
+import com.andreiz0r.breddit.entity.Subthread;
 import com.andreiz0r.breddit.repository.SubthreadRepository;
 import com.andreiz0r.breddit.utils.AbstractUnitTest;
 import com.andreiz0r.breddit.utils.Randoms;

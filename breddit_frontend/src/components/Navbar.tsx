@@ -12,6 +12,7 @@ import {MdOutlineWbSunny} from "react-icons/md";
 import {IoIosLeaf, IoIosMoon} from "react-icons/io";
 import {Client} from "stompjs";
 import {WsContext} from "../main.tsx";
+import {useLogoutMutation} from "../redux/query/breddit-api.ts";
 
 const Navbar = () => {
     //TODO: styling + functionality
@@ -21,11 +22,21 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const wsClient = useContext<Client>(WsContext);
+    const [callLogout] = useLogoutMutation();
 
     const logout = () => {
         wsClient.disconnect(() => console.log("WS Client disconnected."));
-        dispatch(endSession());
-        navigate("/login");
+
+        callLogout().then(_ => {
+            dispatch(endSession());
+            console.log("Successfully logged out.");
+            navigate("/login");
+        });
+        // setTimeout(() => {
+        //     dispatch(endSession());
+        //     console.log("Successfully logged out.");
+        //     navigate("/login");
+        // }, 500);
     }
 
     return (<>

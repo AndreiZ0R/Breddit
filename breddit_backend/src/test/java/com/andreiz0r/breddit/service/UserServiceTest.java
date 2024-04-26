@@ -3,7 +3,7 @@ package com.andreiz0r.breddit.service;
 import com.andreiz0r.breddit.controller.request.UpdateUserRequest;
 import com.andreiz0r.breddit.dto.DTOMapper;
 import com.andreiz0r.breddit.dto.UserDTO;
-import com.andreiz0r.breddit.model.User;
+import com.andreiz0r.breddit.entity.User;
 import com.andreiz0r.breddit.repository.UserRepository;
 import com.andreiz0r.breddit.utils.AbstractUnitTest;
 import com.andreiz0r.breddit.utils.Randoms;

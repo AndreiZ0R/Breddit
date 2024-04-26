@@ -1,7 +1,7 @@
 package com.andreiz0r.breddit.repository;
 
-import com.andreiz0r.breddit.model.Post;
-import com.andreiz0r.breddit.model.User;
+import com.andreiz0r.breddit.entity.Post;
+import com.andreiz0r.breddit.entity.User;
 import com.andreiz0r.breddit.utils.AbstractUnitTest;
 import com.andreiz0r.breddit.utils.PostUtils;
 import com.andreiz0r.breddit.utils.Randoms;

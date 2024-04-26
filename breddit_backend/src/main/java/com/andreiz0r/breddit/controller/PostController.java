@@ -3,7 +3,7 @@ package com.andreiz0r.breddit.controller;
 import com.andreiz0r.breddit.controller.request.CreatePostRequest;
 import com.andreiz0r.breddit.controller.request.UpdatePostRequest;
 import com.andreiz0r.breddit.dto.PostDTO;
-import com.andreiz0r.breddit.model.Post;
+import com.andreiz0r.breddit.entity.Post;
 import com.andreiz0r.breddit.response.Response;
 import com.andreiz0r.breddit.service.PostService;
 import com.andreiz0r.breddit.utils.AppUtils.ReturnMessages;

@@ -2,7 +2,7 @@ package com.andreiz0r.breddit.controller;
 
 import com.andreiz0r.breddit.dto.DTOMapper;
 import com.andreiz0r.breddit.dto.UserDTO;
-import com.andreiz0r.breddit.model.User;
+import com.andreiz0r.breddit.entity.User;
 import com.andreiz0r.breddit.security.JwtService;
 import com.andreiz0r.breddit.service.UserService;
 import com.andreiz0r.breddit.utils.AppUtils;

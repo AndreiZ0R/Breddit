@@ -29,7 +29,6 @@ export default function HomePage() {
         }, 1000);
 
         console.log(wsClient);
-
         return () => {
         };
     }, [wsClient]);
