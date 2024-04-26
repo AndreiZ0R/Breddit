@@ -109,8 +109,8 @@ public class AppUtils {
 
     public interface Images {
         String FORMAT_JPG = "jpg";
-        int DEFAULT_WIDTH = 640;
-        int DEFAULT_HEIGHT = 480;
+        int DEFAULT_WIDTH = 1280;
+        int DEFAULT_HEIGHT = 720;
     }
 }
 

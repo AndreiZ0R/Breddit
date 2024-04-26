@@ -12,16 +12,8 @@ import IconButton from "../components/IconButton.tsx";
 import {FaSearch} from "react-icons/fa";
 import InputField from "../components/InputField.tsx";
 import Checkbox from "../components/Checkbox.tsx";
-import Dropdown from "../components/Dropdown.tsx";
-import SockJS from "sockjs-client";
-import {Client, over} from "stompjs";
 
 export default function LoginPage() {
-    // const count = useSelector(selectCount);
-
-    // const {data: domainModel} = useGetDomainModelQuery("/subthreads");
-    // const models = useGetModel<User[]>("/users");
-
     const dispatch = useDispatch();
     const authState: AuthState = useSelector(selectAuthState);
     const [login] = useLoginMutation();
@@ -32,35 +24,12 @@ export default function LoginPage() {
         password: "",
     });
 
-    const [wsClient, setWsClient] = useState<Client | null>(null);
-
-    useEffect(() => {
-        const sock = new SockJS('http://localhost:8080/socket');
-        const stompClient = over(sock);
-        stompClient.connect({}, __ => {
-            stompClient.subscribe("/topic/messages", message => {
-                const res = JSON.parse(message.body);
-                console.log("Received message: ", res.body);
-            });
-        })
-
-        setWsClient(stompClient);
-
-        return () => {
-            sock.close();
-            stompClient.disconnect(() => console.log("Disconnected..."));
-        }
-    }, []);
-
-    const sendMessage = () => {
-        wsClient?.send("/app/chat", {}, "Andrei");
-    }
-
-
     useEffect(() => {
         if (authState.isLoggedIn) {
             navigate(getRedirectedPath(location.search));
         }
+        return () => {
+        };
     }, [authState]);
 
     const startLogin = () => {
@@ -90,10 +59,8 @@ export default function LoginPage() {
 
                 <Button onClick={startLogin} label="Login" additionalStyles="w-1/2"/>
                 <Checkbox/>
-                <Dropdown/>
 
-
-                <Button label={"send message"} onClick={sendMessage}/>
+                {/*<Button label={"send message"} onClick={sendMessage}/>*/}
 
                 <div className="h-10 w-1"></div>
                 <div className="text-primary bg-background">Teeext</div>

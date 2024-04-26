@@ -10,7 +10,7 @@ export const themeColors = {
     },
     background: {
         base: "var(--background-base)",
-        accent: "var(--background-accent)",
+        accent: "rgba(var(--background-accent), <alpha-value>)",
         text: "var(--background-text)",
         hover: "var(--background-hover)",
     },
@@ -29,6 +29,7 @@ export default {
             }
         },
     },
+    // @ts-ignore
     plugins: [({addUtilities}) => {
         addUtilities({
             '.content-container': {

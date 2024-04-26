@@ -1,10 +1,17 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 
 import breddit_logo from "../assets/breddit_logo.png"
 import Button, {ButtonType} from "./Button.tsx";
 import {AuthState, endSession, selectAuthState} from "../redux/slices/authSlice.ts";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import Dropdown from "./Dropdown.tsx";
+import {changeTheme} from "../redux/slices/themeSlice.ts";
+import {ThemeType} from "../utils/constants.ts";
+import {MdOutlineWbSunny} from "react-icons/md";
+import {IoIosLeaf, IoIosMoon} from "react-icons/io";
+import {Client} from "stompjs";
+import {WsContext} from "../main.tsx";
 
 const Navbar = () => {
     //TODO: styling + functionality
@@ -13,8 +20,10 @@ const Navbar = () => {
     const authState: AuthState = useSelector(selectAuthState);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const wsClient = useContext<Client>(WsContext);
 
     const logout = () => {
+        wsClient.disconnect(() => console.log("WS Client disconnected."));
         dispatch(endSession());
         navigate("/login");
     }
@@ -58,13 +67,28 @@ const Navbar = () => {
                                 </nav>
                             </div>
                             <div className="hidden justify-end pr-16 sm:flex lg:pr-0 flex-row gap-5">
-
-
-                                {
-                                    authState.isLoggedIn ? (
-                                        <Button label="Log Out" onClick={logout}/>
-                                    ) : (
-                                        <>
+                                <div>
+                                    <Dropdown label="Theme" items={[
+                                        {
+                                            label: "Light",
+                                            icon: <MdOutlineWbSunny size={25} className="text-yellow-600"/>,
+                                            onClick: () => dispatch(changeTheme(ThemeType.LIGHT))
+                                        },
+                                        {
+                                            label: "Dark",
+                                            icon: <IoIosMoon size={25} className="text-black"/>,
+                                            onClick: () => dispatch(changeTheme(ThemeType.DARK))
+                                        },
+                                        {
+                                            label: "Green",
+                                            icon: <IoIosLeaf size={25} className="text-green-400"/>,
+                                            onClick: () => dispatch(changeTheme(ThemeType.GREEN))
+                                        },
+                                    ]}/>
+                                </div>
+                                {authState.isLoggedIn ?
+                                    (<Button label="Log Out" onClick={logout}/>)
+                                    : (<>
                                             <Button label="Sign In" onClick={() => {
                                             }} type={ButtonType.TERTIARY}/>
 

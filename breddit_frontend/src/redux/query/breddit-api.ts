@@ -26,10 +26,11 @@ export const bredditApi = createApi({
         getDomainModel: builder.query<DomainResponse, string>({
             query: (endpoint: string) => endpoint,
             // @ts-ignore
-            providesTags: (result, error, arg) => [{
-                type: 'Record' as const,
-                id: arg,
-            }],
+            // providesTags: (result, error, arg) => [{
+            //     type: 'Record' as const,
+            //     id: arg,
+            // }],
+            providesTags: [Queries.getPosts],
         }),
 
         getPostPictures: builder.query<ListResponse, bigint>({

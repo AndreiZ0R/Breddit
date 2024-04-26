@@ -6,8 +6,10 @@ import {createBrowserRouter, Navigate, Outlet, RouterProvider} from "react-route
 import HomePage from "./pages/HomePage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import PrivateRoute from "./pages/PrivateRoute.tsx";
-import React from 'react';
 import Navbar from "./components/Navbar.tsx";
+import SockJS from "sockjs-client";
+import {Client, over} from "stompjs";
+import {createContext} from "react";
 
 
 function Layout() {
@@ -47,11 +49,22 @@ const router = createBrowserRouter([
     }
 ]);
 
+// const sock: WebSocket = new SockJS('http://localhost:8080/socket');
+const stompClient = over(new SockJS('http://localhost:8080/socket'));
+stompClient.connect({}, _ => {
+    console.log("connect");
+})
+
+export const WsContext = createContext<Client>(stompClient);
+
+
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
-    <React.StrictMode>
-        <Provider store={store}>
+    // <React.StrictMode>
+    <Provider store={store}>
+        <WsContext.Provider value={stompClient}>
             <RouterProvider router={router}/>
-        </Provider>
-    </React.StrictMode>,
+        </WsContext.Provider>
+    </Provider>
+    // </React.StrictMode>,
 )

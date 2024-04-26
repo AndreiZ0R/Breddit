@@ -73,7 +73,7 @@ public class ImageController extends AbstractController {
         imageService.saveImage(image, imageType == ImageType.POST ? Randoms.alphabetic(20) : user.getUsername(), imageType)
                 .thenAccept(filenameOptional -> filenameOptional.ifPresentOrElse(
                         filename -> {
-                            sendSuccessMessage(filename, Topic.MESSAGES);
+                            sendSuccessMessage(filename, Topic.NOTIFICATIONS);
                             postId.ifPresent(id -> postService.addImageUrl(id, filename));
                         },
                         () -> sendFailureMessage(ReturnMessages.failedToSaveResource(), Topic.MESSAGES)

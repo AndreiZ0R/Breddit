@@ -1,7 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit'
-import counterReducer from "../slices/counterSlice.ts"
 import authReducer from "../slices/authSlice.ts";
 import themeReducer from "../slices/themeSlice.ts";
+// import websocketReducer from "../slices/websocketSlice.ts"
 import {bredditApi} from "../query/breddit-api.ts";
 import {setupListeners} from "@reduxjs/toolkit/query";
 
@@ -10,9 +10,11 @@ export const store = configureStore({
         [bredditApi.reducerPath]: bredditApi.reducer,
         auth: authReducer,
         theme: themeReducer,
-        counter: counterReducer,
+        // websocket: websocketReducer,
+        // counter: counterReducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(bredditApi.middleware)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+        .concat(bredditApi.middleware),
 })
 
 setupListeners(store.dispatch);

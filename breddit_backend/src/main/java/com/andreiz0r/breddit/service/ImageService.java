@@ -88,7 +88,7 @@ public class ImageService {
         BufferedImage bufferedImage = ImageIO.read(image.getInputStream());
         BufferedImage compressedBI = Scalr.resize(bufferedImage,
                                                   Scalr.Method.BALANCED,
-                                                  Scalr.Mode.FIT_TO_WIDTH,
+                                                  Scalr.Mode.FIT_EXACT,
                                                   Images.DEFAULT_WIDTH,
                                                   Images.DEFAULT_HEIGHT);
         File outputImage = new File(getFilePath(identifier, imageType));

@@ -9,11 +9,8 @@ export default defineConfig({
         },
         proxy: {
             '/api': "http://localhost:8080",
+            "/socket": "wss://localhost:8080",
         },
-        // hmr: {
-        //     host: 'localhost',
-        //     protocol: "ws",
-        // }
     },
     plugins: [react()],
 })

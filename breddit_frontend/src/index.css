@@ -12,11 +12,11 @@
         --primary-lighter: rgb(196, 147, 255);
         --secondary-base: rgb(255, 191, 0);
         --background-base: rgb(239, 239, 239);
-        --background-accent: rgb(245, 245, 245);
+        --background-accent: 245, 245, 245;
         --background-text: rgb(36, 36, 36);
         --background-hover: rgb(224, 224, 224);
         --nav-text: rgb(36, 36, 36);
-    /*    TODO: inactive color!!! (for checkbox) + snackbar*/
+        /*    TODO: inactive color!!! (for checkbox) + snackbar*/
     }
 
     :root[data-theme="dark"] {
@@ -24,7 +24,8 @@
         --primary-lighter: rgb(196, 147, 255);
         --secondary-base: rgb(255, 191, 0);
         --background-base: rgb(36, 36, 36);
-        --background-accent: rgb(19, 19, 19);
+        /*TODO: this to every color so that opacity works!!!*/
+        --background-accent: 19, 19, 19;
         --background-text: rgb(239, 239, 239);
         --background-hover: rgb(52, 52, 52);
         --nav-text: rgb(239, 239, 239);
@@ -35,9 +36,30 @@
         --primary-lighter: rgb(66, 134, 56);
         --secondary-base: rgb(241, 138, 56);
         --background-base: rgb(225, 250, 212);
-        --background-accent: rgb(56, 89, 40);
+        --background-accent: 56, 89, 40;
         --background-text: rgb(36, 36, 36);
         --background-hover: rgb(104, 203, 126);
         --nav-text: rgb(239, 239, 239);
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: var(--background-accent);
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: var(--primary-base);
+        border-radius: 5px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-lighter);
     }
 }
