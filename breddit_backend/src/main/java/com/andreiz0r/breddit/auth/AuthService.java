@@ -59,7 +59,7 @@ public class AuthService {
                 .map(this::mapToAuthenticationResponse);
     }
 
-    //TODO: make user session service and use that instead
+    //TODO: make user session service and use that instead d
 
     public Optional<UserSessionDTO> logout(final UUID sessionId) {
         return userSessionRepository.findById(sessionId)
