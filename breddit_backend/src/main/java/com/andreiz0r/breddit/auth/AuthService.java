@@ -2,6 +2,7 @@ package com.andreiz0r.breddit.auth;
 
 import com.andreiz0r.breddit.auth.message.AuthRequest;
 import com.andreiz0r.breddit.auth.message.AuthResponse;
+import com.andreiz0r.breddit.auth.message.RefreshTokenResponse;
 import com.andreiz0r.breddit.auth.message.RegisterRequest;
 import com.andreiz0r.breddit.auth.message.RegisterResponse;
 import com.andreiz0r.breddit.dto.DTOMapper;
@@ -58,6 +59,8 @@ public class AuthService {
                 .map(this::mapToAuthenticationResponse);
     }
 
+    //TODO: make user session service and use that instead
+
     public Optional<UserSessionDTO> logout(final UUID sessionId) {
         return userSessionRepository.findById(sessionId)
                 .filter(session -> userSessionRepository.deleteSessionBySessionId(sessionId) != 0)
@@ -70,6 +73,13 @@ public class AuthService {
                 .map(DTOMapper::mapUserSessionToDTO);
     }
 
+    public Optional<RefreshTokenResponse> refreshJwtToken(final UUID sessionId) {
+        return userSessionRepository.findById(sessionId)
+                .map(userSession -> RefreshTokenResponse.builder()
+                        .token(jwtService.generateToken(userSession.getUser()))
+                        .build());
+    }
+
     private AuthResponse mapToAuthenticationResponse(final Pair<User, UUID> pair) {
         return AuthResponse.builder()
                 .token(jwtService.generateToken(pair.getLeft()))
@@ -77,4 +87,5 @@ public class AuthService {
                 .sessionId(pair.getRight())
                 .build();
     }
+
 }

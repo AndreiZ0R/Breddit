@@ -31,7 +31,6 @@ public class Response extends ResponseEntity<Object> implements Serializable {
         this.body = builder.body;
     }
 
-    //TODO: maybe make interceptors for headers
     public static class Builder {
         private String message;
         private HttpStatus status;

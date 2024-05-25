@@ -61,5 +61,10 @@ public class AuthController extends AbstractController {
                 .orElse(failureResponse(ReturnMessages.notFound(UserSession.class, "userId", user.getId()), HttpStatus.NOT_FOUND));
     }
 
-    // TODO: get a token if sessionId is in DB
+    @GetMapping
+    public Response refreshToken(@RequestHeader(SESSION_ID_HEADER) final UUID sessionId) {
+        return service.refreshJwtToken(sessionId)
+                .map(this::successResponse)
+                .orElse(failureResponse(ReturnMessages.notFound(UserSession.class), HttpStatus.NOT_FOUND));
+    }
 }
