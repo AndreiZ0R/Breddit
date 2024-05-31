@@ -34,16 +34,18 @@ export default function HomePage() {
     }, [wsClient]);
 
     return (
-        <>
+        <div className="bg-background-base text-background-text px-32 content-container">
+            <span>Today's posts:</span>
             <div className="bg-background-base text-background-text">Hello, {authState.user?.username}</div>
-            <div className="bg-background-base text-background-text px-32">Today's posts:
-                {
-                    posts?.map((post: Post, index: number) => <PostCard post={post} key={index}/>)
-                }
+            {
+                posts?.map((post: Post, index: number) => <PostCard post={post} key={index}/>)
+            }
+            {
+                posts?.map((post: Post, index: number) => <PostCard post={post} key={index}/>)
+            }
 
-                <Toaster/>
-            </div>
-        </>
+            <Toaster/>
+        </div>
     )
 }
 
@@ -89,31 +91,29 @@ const PostCard = ({post}: PostCardProps) => {
     }
 
     return (
-        <>
-            <div style={wrapperStyle} key={post.id}
-                 className="bg-background-accent/50 hover:bg-background-hover transition duration-300 ease-in-out hover:cursor-pointer">
-                <div style={titleStyle} key={post.title}>{post.title}</div>
-                <div style={authorStyle} key={post.author.username}>by {post.author.username}</div>
-                <div style={divider}></div>
-                <div className="text-background-text">{post.body}</div>
+        <div style={wrapperStyle} key={post.id}
+             className="bg-background-accent/50 hover:bg-background-hover transition duration-300 ease-in-out hover:cursor-pointer scroll-auto">
+            <div style={titleStyle} key={post.title}>{post.title}</div>
+            <div style={authorStyle} key={post.author.username}>by {post.author.username}</div>
+            <div style={divider}></div>
+            <div className="text-background-text">{post.body}</div>
 
 
-                {postImages && postImages.payload.length > 0 &&
-                    <div className="w-1/2 m-auto flex items-center justify-center rounded-xl">
-                        <ImageSlider images={postImages.payload}/>
-                    </div>
-                }
+            {postImages && postImages.payload.length > 0 &&
+                <div className="w-1/2 m-auto flex items-center justify-center rounded-xl">
+                    <ImageSlider images={postImages.payload}/>
+                </div>
+            }
 
 
-                <div className="text-background-text">{`Votes: ${post.votes.toString()}`}</div>
-                <div className="text-background-text">Comments:</div>
-                {
-                    post.comments.map((comment: Comment) => {
-                        return <div className="text-secondary-base" key={comment.id}
-                                    style={{marginLeft: "10px"}}>{comment.body} ---- {comment.author.username}</div>
-                    })
-                }
-            </div>
-        </>
+            <div className="text-background-text">{`Votes: ${post.votes.toString()}`}</div>
+            <div className="text-background-text">Comments:</div>
+            {
+                post.comments.map((comment: Comment) => {
+                    return <div className="text-secondary-base" key={comment.id}
+                                style={{marginLeft: "10px"}}>{comment.body} ---- {comment.author.username}</div>
+                })
+            }
+        </div>
     );
 }

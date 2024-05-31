@@ -13,6 +13,7 @@ export const AppRoutes = {
     HOME: "/home",
     SESSIONS: "/sessions",
     LOGIN: "/login",
+    REGISTER: "/register"
 }
 
 export const Endpoints = {

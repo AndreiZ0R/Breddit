@@ -8,38 +8,37 @@
     /*Light theme*/
     :root {
         font-family: 'Poppins', 'ui-sans-serif';
-        --primary-base: rgb(132, 94, 194);
-        --primary-lighter: rgb(196, 147, 255);
-        --secondary-base: rgb(255, 191, 0);
-        --background-base: rgb(239, 239, 239);
+        --primary-base: 132, 94, 194;
+        --primary-lighter: 177, 112, 255;
+        --secondary-base: 255, 191, 0;
+        --background-base: 229, 229, 229;
         --background-accent: 245, 245, 245;
-        --background-text: rgb(36, 36, 36);
-        --background-hover: rgb(224, 224, 224);
-        --nav-text: rgb(36, 36, 36);
+        --background-text: 36, 36, 36;
+        --background-hover: 224, 224, 224;
+        --nav-text: 36, 36, 36;
         /*    TODO: inactive color!!! (for checkbox) + snackbar*/
     }
 
     :root[data-theme="dark"] {
-        --primary-base: rgb(132, 94, 194);
-        --primary-lighter: rgb(196, 147, 255);
-        --secondary-base: rgb(255, 191, 0);
-        --background-base: rgb(36, 36, 36);
-        /*TODO: this to every color so that opacity works!!!*/
+        --primary-base: 132, 94, 194;
+        --primary-lighter: 177, 112, 255;
+        --secondary-base: 255, 191, 0;
+        --background-base: 36, 36, 36;
         --background-accent: 19, 19, 19;
-        --background-text: rgb(239, 239, 239);
-        --background-hover: rgb(52, 52, 52);
-        --nav-text: rgb(239, 239, 239);
+        --background-text: 239, 239, 239;
+        --background-hover: 52, 52, 52;
+        --nav-text: 239, 239, 239;
     }
 
     :root[data-theme="green"] {
-        --primary-base: rgb(131, 187, 30);
-        --primary-lighter: rgb(66, 134, 56);
-        --secondary-base: rgb(241, 138, 56);
-        --background-base: rgb(225, 250, 212);
+        --primary-base: 131, 187, 30;
+        --primary-lighter: 66, 134, 56;
+        --secondary-base: 241, 138, 56;
+        --background-base: 225, 250, 212;
         --background-accent: 56, 89, 40;
-        --background-text: rgb(36, 36, 36);
-        --background-hover: rgb(104, 203, 126);
-        --nav-text: rgb(239, 239, 239);
+        --background-text: 36, 36, 36;
+        --background-hover: 104, 203, 126;
+        --nav-text: 239, 239, 239;
     }
 
     /* width */

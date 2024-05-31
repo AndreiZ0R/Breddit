@@ -89,6 +89,7 @@ export type {
     SingleResponse,
     ListResponse,
     User,
+    UserRole,
     Comment,
     Post,
     Subthread,

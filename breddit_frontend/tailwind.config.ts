@@ -2,20 +2,20 @@ import type {Config} from 'tailwindcss'
 
 export const themeColors = {
     primary: {
-        base: "var(--primary-base)",
-        lighter: "var(--primary-lighter)",
+        base: "rgba(var(--primary-base), <alpha-value>)",
+        lighter: "rgba(var(--primary-lighter), <alpha-value>)",
     },
     secondary: {
-        base: "var(--secondary-base)",
+        base: "rgba(var(--secondary-base), <alpha-value>)",
     },
     background: {
-        base: "var(--background-base)",
+        base: "rgba(var(--background-base), <alpha-value>)",
         accent: "rgba(var(--background-accent), <alpha-value>)",
-        text: "var(--background-text)",
-        hover: "var(--background-hover)",
+        text: "rgba(var(--background-text), <alpha-value>)",
+        hover: "rgba(var(--background-hover), <alpha-value>)",
     },
     nav: {
-        text: "var(--nav-text)",
+        text: "rgba(var(--nav-text), <alpha-value>)",
     }
 };
 
@@ -34,6 +34,7 @@ export default {
         addUtilities({
             '.content-container': {
                 height: `calc(100dvh - 98px)`,
+                overflow: "auto",
             }
         })
     }],

@@ -12,6 +12,7 @@ import {Client, over} from "stompjs";
 import {createContext} from "react";
 import SessionsPage from "./pages/SessionsPage.tsx";
 import {AppRoutes} from "./utils/constants.ts";
+import RegisterPage from "./pages/RegisterPage.tsx";
 
 function Layout() {
     return (
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             {
                 path: AppRoutes.SESSIONS,
                 element: <PrivateRoute><SessionsPage/></PrivateRoute>
+            },
+            {
+                path: AppRoutes.REGISTER,
+                element: <RegisterPage/>
             },
             {
                 path: "/ok",

@@ -31,7 +31,7 @@ export default function IconButton({text, icon, onClick, type = IconButtonType.F
     return (
         <button
             onClick={onClick}
-            className={`flex flex-row align-middle justify-center items-center text-white rounded-xl space-x-2 transition duration-300 ease-in-out shadow-2xl ${getButtonStyle()} ${additionalStyles}`}>
+            className={`flex flex-row align-middle justify-center items-center text-white rounded-md space-x-2 transition duration-200 ease-in-out shadow-2xl ${getButtonStyle()} ${additionalStyles}`}>
             {text && <p>{text}</p>}
             {icon}
         </button>
