@@ -1,17 +1,34 @@
-// const useStartWsConnection = () => {
-//     const wsClient = useContext<Client>(WsContext);
-//     const connect = wsClient.connect({}, _ => {
-//         console.log("WS Client connected.");
-//     });
+import {MutableRefObject, useEffect, useState} from "react";
+
+const useIsVisible = (ref: MutableRefObject<HTMLInputElement | null>) => {
+    const [isIntersecting, setIntersecting] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (ref && ref.current) {
+
+            const observer = new IntersectionObserver(([entry]) => {
+                    setIntersecting(entry.isIntersecting)
+                }
+            );
+
+            observer.observe(ref.current);
+            return () => {
+                observer.disconnect();
+            };
+        }
+    }, [ref]);
+
+    return isIntersecting;
+}
+
+// USAGE:
+// const firstStepRef = useRef<HTMLInputElement | null>(null);
+// const firstStepVisible = useIsVisible(firstStepRef);
 //
-//     return {connect};
-// }
+// const secondStepRef = useRef<HTMLInputElement | null>(null);
+// const secondStepVisible = useIsVisible(secondStepRef);
 //
-// const useStopWsConnection = () => {
-//     const wsClient = useContext<Client>(WsContext);
-//     const disconnect = wsClient.disconnect(() => console.log("WS Client disconnected."));
-//     return {disconnect};
-// }
-//
-//
-// export {useStartWsConnection, useStopWsConnection};
+// const thirdStepRef = useRef<HTMLInputElement | null>(null);
+// const thirdStepVisible = useIsVisible(thirdStepRef);
+
+export {useIsVisible};

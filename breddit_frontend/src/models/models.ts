@@ -80,7 +80,6 @@ interface SessionResponse{
     user: User,
 }
 
-
 export type {
     BaseModel,
     BaseResponse,

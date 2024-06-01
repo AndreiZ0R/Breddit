@@ -73,7 +73,7 @@ const Navbar = () => {
 
                                         {/*TODO:*/}
                                         <Button label="Sign In" onClick={() => {
-                                        }} type={ButtonType.TERTIARY} additionalStyles={`lg:hidden sm:hidden`}/>
+                                        }} buttonType={ButtonType.TERTIARY} additionalStyles={`lg:hidden sm:hidden`}/>
                                     </ul>
                                 </nav>
                             </div>
@@ -101,7 +101,7 @@ const Navbar = () => {
                                     (<Button label="Log Out" onClick={logout}/>)
                                     : (<>
                                             <Button label="Sign In" onClick={() => {
-                                            }} type={ButtonType.TERTIARY}/>
+                                            }} buttonType={ButtonType.TERTIARY}/>
 
                                             <Button label="Sign Up" onClick={() => {
                                             }}/>

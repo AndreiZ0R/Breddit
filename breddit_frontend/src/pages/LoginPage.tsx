@@ -10,6 +10,7 @@ import {useLoginMutation} from "../redux/query/breddit-api.ts";
 import MountainsIllustration from "../assets/waves_illustr.jpg";
 import {AppRoutes} from "../utils/constants.ts";
 
+//TODO: zod with form validation
 export default function LoginPage() {
     const dispatch = useDispatch();
     const authState: AuthState = useSelector(selectAuthState);
@@ -66,7 +67,7 @@ export default function LoginPage() {
 
                     <div className="flex flex-col gap-2">
                         <Button onClick={startLogin} label="Login" additionalStyles="w-full"/>
-                        <Button onClick={redirectToRegister} label="Not a member yet? Create a free account" type={ButtonType.TERTIARY}
+                        <Button onClick={redirectToRegister} label="Not a member yet? Create a free account" buttonType={ButtonType.TERTIARY}
                                 additionalStyles={"w-full"}/>
                     </div>
                 </div>
