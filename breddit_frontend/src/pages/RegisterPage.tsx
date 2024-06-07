@@ -14,6 +14,8 @@ import {MdDone, MdErrorOutline} from "react-icons/md";
 import {useRegisterMutation} from "../redux/query/breddit-api.ts";
 import {useDispatch} from "react-redux";
 import {startSession} from "../redux/slices/authSlice.ts";
+import {toast, Toaster} from "react-hot-toast";
+import {errorToastOptions} from "../utils/toast.tsx";
 
 type RegisterUser = {
    username: string;
@@ -79,7 +81,6 @@ export default function RegisterPage() {
       formState: {errors: firstFormErrors}
    } = useForm<FirstStepFields>({
       resolver: zodResolver(firstStepSchema),
-      mode: "onChange",
    });
 
    const {
@@ -112,37 +113,29 @@ export default function RegisterPage() {
       setCurrentStep(currentStep + 1);
    }
 
-   const onSubmit: SubmitHandler<FirstStepFields | SecondStepFields | FirstStepFields & SecondStepFields> = async (__) => {
+   const onSubmit: SubmitHandler<FirstStepFields | SecondStepFields | FirstStepFields & SecondStepFields> = (__) => {
       register(registerData).unwrap()
          .then((response: AuthResponse) => {
             dispatch(startSession(response));
             //TODO: redirect to confirm email when feature is done
             navigate(AppRoutes.HOME);
          })
-         .catch(error => console.log(error));
-      // try {
-      //    await new Promise((resolve) => setTimeout(resolve, 2000));
-      //    throw new Error();
-      // } catch (e) {
-      //    setCurrentStep(0);
-      //    setErrorFirstForm("email", {message: "Email is already taken"})
-      //    //     root ca si form error in general
-      // }
-      // console.log(registerData);
-      //TODO: register
+         .catch(error => {
+            toast.error(error.message, errorToastOptions())
+         });
    }
 
    return (
       <div className="flex flex-col items-center justify-center content-container w-full bg-background-base p-5 md:p-0 md:px-6">
          {/* Card */}
          <div
-            className="md:w-full md:h-5/6 xl:w-5/6 xl:h-4/5  md:bg-background-accent w-full h-full flex justify-center items-center bg-transparent rounded-xl drop-shadow-lg transition-all duration-100 ease-in-out">
+            className="md:w-full md:h-5/6 xl:w-5/6 xl:h-5/6 md:bg-background-accent w-full h-full flex justify-center items-center bg-transparent rounded-xl drop-shadow-lg transition-all duration-100 ease-in-out">
             {/* Form */}
-            <div className="h-full md:w-4/5 lg:w-1/2 w-full lg:px-12 lg:py-7 md:px-10 md:py-4 p-3 flex flex-col justify-around">
+            <div className="h-full md:w-4/5 lg:w-1/2 w-full lg:px-12 lg:py-2 md:px-8 md:py-4 p-3 flex flex-col justify-around">
                <Stepper steps={3} currentStep={currentStep} stepsDirection="row"/>
 
                {/* Header */}
-               <div className="text-background-text text-4xl text-center">
+               <div className="text-background-text text-4xl text-center my-2">
                   {currentStep === 0 && <span>Sign up for a new account</span>}
                   {currentStep === 1 && <span>Let's create a password for your account</span>}
                   {currentStep === 2 && <span>One last step</span>}
@@ -242,7 +235,7 @@ export default function RegisterPage() {
                <img src={MountainsIllustration} className="object-cover md:h-full md:w-full rounded-r-xl sm:h-0 sm:w-0 hidden md:block" alt="ill"/>
             </div>
          </div>
-
+         <Toaster/>
       </div>
    )
 }

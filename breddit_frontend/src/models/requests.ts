@@ -17,8 +17,16 @@ interface RegisterRequest extends BaseRequest {
    role: UserRole
 }
 
+interface CreateCommentRequest extends BaseRequest {
+   authorId: number,
+   body: string,
+   postId: number,
+   parentId: number | null,
+}
+
 export type {
    BaseRequest,
    AuthRequest,
    RegisterRequest,
+   CreateCommentRequest
 };

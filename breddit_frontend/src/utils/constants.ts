@@ -13,7 +13,8 @@ export const AppRoutes = {
     HOME: "/home",
     SESSIONS: "/sessions",
     LOGIN: "/login",
-    REGISTER: "/register"
+    REGISTER: "/register",
+    SUBTHREAD: "/sub"
 }
 
 export const Endpoints = {

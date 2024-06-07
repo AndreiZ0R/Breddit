@@ -69,6 +69,21 @@ public class DTOMapper {
         );
     }
 
+    public static ViewPostDTO mapPostToDTO(final Post post, final String subthreadName) {
+        return new ViewPostDTO(
+                post.getId(),
+                post.getTitle(),
+                post.getBody(),
+                mapUserToDTO(post.getAuthor()),
+                post.getPostedAt(),
+                post.getComments().stream().map(DTOMapper::mapCommentToDTO).toList(),
+                post.getVotes(),
+                post.getSubthreadId(),
+                subthreadName,
+                post.getImagesUrl()
+        );
+    }
+
     public static SubthreadDTO mapSubthreadToDTO(final Subthread subthread) {
         return new SubthreadDTO(
                 subthread.getId(),

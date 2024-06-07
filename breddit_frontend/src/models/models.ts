@@ -2,7 +2,7 @@ interface BaseModel {
 }
 
 interface DomainModel extends BaseModel {
-    id: bigint,
+    id: number,
 }
 
 interface BaseResponse {
@@ -39,7 +39,7 @@ interface Comment extends DomainModel {
     postedAt: Date,
     votes: bigint,
     postId: bigint,
-    parentId: bigint | null,
+    parentId: number | null,
 }
 
 interface Post extends DomainModel {
@@ -48,9 +48,13 @@ interface Post extends DomainModel {
     author: User,
     postedAt: Date,
     comments: Comment[],
-    votes: bigint,
+    votes: number,
     subthreadId: bigint,
     imagesUrl: string[],
+}
+
+interface PostView extends Post{
+    subthreadName: string;
 }
 
 interface Subthread extends DomainModel {
@@ -91,6 +95,7 @@ export type {
     UserRole,
     Comment,
     Post,
+    PostView,
     Subthread,
     Message,
     AuthResponse,

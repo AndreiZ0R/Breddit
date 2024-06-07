@@ -16,7 +16,7 @@ export default function Dropdown({label, items}: DropdownProps) {
     const [open, setOpen] = useState<boolean>(false);
 
     return (
-        <div className="dropdown inline-block relative w-full" onClick={() => setOpen(!open)}>
+        <div className=" inline-block relative w-full" onClick={() => setOpen(!open)}>
             <button className="bg-background-hover  text-background-text  font-semibold py-2 px-4 rounded inline-flex items-center">
                 <span className="mr-1">{label}</span>
                 {open ? <IoIosArrowUp/> : <IoIosArrowDown/>}

@@ -39,7 +39,6 @@ public class UserController extends AbstractController {
 
     @GetMapping("/{id}")
     public Response findById(@PathVariable final Integer id) {
-        System.out.println("id: " + id);
         return userService.findById(id)
                 .map(this::successResponse)
                 .orElse(failureResponse(ReturnMessages.notFound(User.class, "id", id), HttpStatus.NOT_FOUND));

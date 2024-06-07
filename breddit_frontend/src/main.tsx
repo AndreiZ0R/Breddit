@@ -13,55 +13,54 @@ import {createContext} from "react";
 import SessionsPage from "./pages/SessionsPage.tsx";
 import {AppRoutes} from "./utils/constants.ts";
 import RegisterPage from "./pages/RegisterPage.tsx";
+import PostPage from "./pages/PostPage.tsx";
 
 function Layout() {
-    return (
-        <>
-            <Navbar/>
-            <Outlet/>
-            {/*<Footer/>*/}
-        </>
-    );
+   return (
+      <>
+         <Navbar/>
+         <Outlet/>
+         {/*<Footer/>*/}
+      </>
+   );
 }
 
 const router = createBrowserRouter([
-    {
-        element: <Layout/>,
-        // errorElement: <div>Not found</div>,
-        children: [
-            {
-                path: AppRoutes.PROTECTED,
-                element: <Navigate to={AppRoutes.HOME} replace/>
-            },
-            {
-                path: AppRoutes.HOME,
-                element: <PrivateRoute><HomePage/></PrivateRoute>,
-            },
-            {
-                path: AppRoutes.LOGIN,
-                element: <LoginPage/>
-            },
-            {
-                path: AppRoutes.SESSIONS,
-                element: <PrivateRoute><SessionsPage/></PrivateRoute>
-            },
-            {
-                path: AppRoutes.REGISTER,
-                element: <RegisterPage/>
-            },
-            {
-                path: "/ok",
-                element: <PrivateRoute>
-                    <div>okok</div>
-                </PrivateRoute>
-            }
-        ]
-    }
+   {
+      element: <Layout/>,
+      // errorElement: <div>Not found</div>,
+      children: [
+         {
+            path: AppRoutes.PROTECTED,
+            element: <Navigate to={AppRoutes.HOME} replace/>
+         },
+         {
+            path: AppRoutes.HOME,
+            element: <PrivateRoute><HomePage/></PrivateRoute>,
+         },
+         {
+            path: AppRoutes.LOGIN,
+            element: <LoginPage/>
+         },
+         {
+            path: AppRoutes.SESSIONS,
+            element: <PrivateRoute><SessionsPage/></PrivateRoute>
+         },
+         {
+            path: AppRoutes.REGISTER,
+            element: <RegisterPage/>
+         },
+         {
+            path: `${AppRoutes.SUBTHREAD}/:subName/:postId`,
+            element: <PrivateRoute><PostPage/></PrivateRoute>
+         }
+      ]
+   }
 ]);
 
 const stompClient: Client = over(new SockJS('http://localhost:8080/socket'));
 stompClient.connect({}, _ => {
-    console.log("WS Client connected.");
+   console.log("WS Client connected.");
 })
 
 export const WsContext = createContext<Client>(stompClient);
@@ -69,9 +68,9 @@ export const WsContext = createContext<Client>(stompClient);
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
-    <Provider store={store}>
-        <WsContext.Provider value={stompClient}>
-            <RouterProvider router={router}/>
-        </WsContext.Provider>
-    </Provider>
+   <Provider store={store}>
+      <WsContext.Provider value={stompClient}>
+         <RouterProvider router={router}/>
+      </WsContext.Provider>
+   </Provider>
 )

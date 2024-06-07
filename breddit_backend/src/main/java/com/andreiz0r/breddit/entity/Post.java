@@ -42,7 +42,6 @@ public class Post {
     @Column(nullable = false)
     private String title;
 
-    //TODO: upgrade to Body class, also permitting pictures
     @Column(nullable = false)
     private String body;
 

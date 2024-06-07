@@ -3,6 +3,7 @@ package com.andreiz0r.breddit.controller;
 import com.andreiz0r.breddit.controller.request.CreatePostRequest;
 import com.andreiz0r.breddit.controller.request.UpdatePostRequest;
 import com.andreiz0r.breddit.dto.PostDTO;
+import com.andreiz0r.breddit.dto.ViewPostDTO;
 import com.andreiz0r.breddit.entity.Post;
 import com.andreiz0r.breddit.response.Response;
 import com.andreiz0r.breddit.service.PostService;
@@ -33,6 +34,14 @@ public class PostController extends AbstractController {
     @GetMapping
     public Response findAll() {
         List<PostDTO> posts = postService.findAll();
+        return !posts.isEmpty() ?
+               successResponse(posts) :
+               failureResponse(ReturnMessages.fetchFailed(Post.class), HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/withSubName")
+    public Response findAllWithSubthreadName() {
+        List<ViewPostDTO> posts = postService.findAllWithSubthreadName();
         return !posts.isEmpty() ?
                successResponse(posts) :
                failureResponse(ReturnMessages.fetchFailed(Post.class), HttpStatus.NOT_FOUND);

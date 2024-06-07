@@ -4,8 +4,11 @@ import com.andreiz0r.breddit.controller.request.CreatePostRequest;
 import com.andreiz0r.breddit.controller.request.UpdatePostRequest;
 import com.andreiz0r.breddit.dto.DTOMapper;
 import com.andreiz0r.breddit.dto.PostDTO;
+import com.andreiz0r.breddit.dto.ViewPostDTO;
 import com.andreiz0r.breddit.entity.Post;
+import com.andreiz0r.breddit.entity.Subthread;
 import com.andreiz0r.breddit.repository.PostRepository;
+import com.andreiz0r.breddit.repository.SubthreadRepository;
 import com.andreiz0r.breddit.repository.UserRepository;
 import com.andreiz0r.breddit.utils.AppUtils;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -23,9 +27,19 @@ import java.util.stream.Collectors;
 public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final SubthreadRepository subthreadRepository;
 
     public List<PostDTO> findAll() {
         return postRepository.findAll().stream().map(DTOMapper::mapPostToDTO).collect(Collectors.toList());
+    }
+
+    public List<ViewPostDTO> findAllWithSubthreadName() {
+        return postRepository.findAll().stream()
+                .map(post -> subthreadRepository.findById(post.getSubthreadId())
+                        .map(sub -> DTOMapper.mapPostToDTO(post, sub.getName()))
+                        .orElse(null))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     public Optional<PostDTO> findById(final Integer id) {

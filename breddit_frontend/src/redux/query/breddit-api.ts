@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import {AuthResponse, BaseModel, BaseResponse, DomainResponse, ListResponse, SessionResponse} from 'models/models.ts';
-import {AuthRequest, RegisterRequest} from "models/requests.ts";
+import {AuthResponse, BaseModel, BaseResponse, Comment, DomainResponse, ListResponse, SessionResponse, SingleResponse} from 'models/models.ts';
+import {AuthRequest, CreateCommentRequest, RegisterRequest} from "models/requests.ts";
 import Cookies from "js-cookie";
 import {Constants, Endpoints, HttpMethods, Queries} from "../../utils/constants.ts";
 
@@ -37,8 +37,13 @@ export const bredditApi = createApi({
          // }],
       }),
 
-      getPostPictures: builder.query<ListResponse, bigint>({
-         query: (postId: bigint) => `${Endpoints.images}/post/${postId}`,
+      getPostPictures: builder.query<ListResponse, number>({
+         query: (postId: number) => `${Endpoints.images}/post/${postId}`,
+         transformErrorResponse: (response: { status: number, data: BaseResponse }): BaseResponse => response.data as BaseResponse,
+      }),
+
+      getProfilePicture: builder.query<SingleResponse, string>({
+         query: (username: string) => `${Endpoints.images}/profile/${username}`,
          transformErrorResponse: (response: { status: number, data: BaseResponse }): BaseResponse => response.data as BaseResponse,
       }),
 
@@ -74,6 +79,16 @@ export const bredditApi = createApi({
          transformErrorResponse: (response: { status: number, data: BaseResponse }): BaseResponse => response.data as BaseResponse,
       }),
 
+      addComment: builder.mutation<Comment, CreateCommentRequest>({
+         query: (createCommentRequest: CreateCommentRequest) => ({
+            url: `${Endpoints.comments}/create`,
+            method: HttpMethods.POST,
+            body: createCommentRequest,
+         }),
+         transformResponse: (response: { payload: Comment }): Comment => response.payload as Comment,
+         transformErrorResponse: (response: { status: number, data: BaseResponse }): BaseResponse => response.data as BaseResponse,
+      }),
+
    }),
 });
 
@@ -90,5 +105,7 @@ export const {
    useGetPostPicturesQuery,
    useGetActiveSessionsQuery,
    useLogoutMutation,
-   useRegisterMutation
+   useRegisterMutation,
+   useGetProfilePictureQuery,
+   useAddCommentMutation,
 } = bredditApi;

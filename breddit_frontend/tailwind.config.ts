@@ -16,6 +16,9 @@ export const themeColors = {
     },
     nav: {
         text: "rgba(var(--nav-text), <alpha-value>)",
+    },
+    common: {
+        gray: "rgba(var(--common-gray), <alpha-value>)"
     }
 };
 

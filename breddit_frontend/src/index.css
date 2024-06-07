@@ -16,6 +16,7 @@
         --background-text: 36, 36, 36;
         --background-hover: 224, 224, 224;
         --nav-text: 36, 36, 36;
+        --common-gray: 128, 128, 128
         /*    TODO: inactive color!!! (for checkbox) + snackbar + err*/
     }
 
